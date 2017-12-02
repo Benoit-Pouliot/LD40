@@ -12,6 +12,7 @@ class LogicHandler(LogicHandler):
     def handle(self):
         super().handle()
         self.physics.update()
+        self.handleCollision()
 
 
     def handleCollision(self):

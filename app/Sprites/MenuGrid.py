@@ -1,5 +1,3 @@
-__author__ = 'Bobsleigh'
-
 import pygame
 from app.settings import *
 

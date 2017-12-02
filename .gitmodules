@@ -1,0 +1,3 @@
+[submodule "LDEngine"]
+	path = LDEngine
+	url = https://github.com/Bobsleigh/LDEngine.git

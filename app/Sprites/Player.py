@@ -224,3 +224,6 @@ class Player(pygame.sprite.Sprite):
 
     def jump(self):
         self.speedy = -self.jumpSpeed
+
+    def slowedSpeed(self):
+        pass

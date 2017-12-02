@@ -8,15 +8,15 @@ class Backpack():
     def addItem(self, item):
         coordinate = self.nextFreeCoordinate();
         if coordinate != None:
-            self.items[coordinate[0]][coordinate[1]] = item.ID
+            self.items[coordinate[0]][coordinate[1]] = item
 
     def nextFreeCoordinate(self):
         x = 0
         y = 0
 
         for list in self.items:
-            for ID in list:
-                if ID == 0:
+            for item in list:
+                if item == 0:
                     return (x,y)
                 y += 1
             x += 1

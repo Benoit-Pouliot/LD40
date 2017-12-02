@@ -7,7 +7,7 @@ import pygame
 
 class SceneData(SceneDataTMX):
     def __init__(self):
-        super().__init__("CavernMap", "StartPointWorld", (SCREEN_WIDTH,SCREEN_HEIGHT))
+        super().__init__("LocalCavernMap", "StartPointWorld", (SCREEN_WIDTH,SCREEN_HEIGHT))
 
         self.player = Player(50, 50, self)
 

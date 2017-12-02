@@ -1,13 +1,13 @@
 from LDEngine.ldLib.scene.LogicHandler import LogicHandler
 from LDEngine.ldLib.collision.collisionNotifySprite import collisionNotifySprite
-from LDEngine.FeatureTests.TileCollisions.TestScenePhysics import TestScenePhysics
 
+from app.ScenePhysics import ScenePhysics
 from app.settings import *
 
 class LogicHandler(LogicHandler):
     def __init__(self, gameData):
         super().__init__(gameData)
-        self.physics = TestScenePhysics(gameData.sceneData)
+        self.physics = ScenePhysics(gameData.sceneData)
 
     def handle(self):
         super().handle()

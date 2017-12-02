@@ -21,5 +21,5 @@ class SceneData(SceneDataTMX):
                 self.allSprites.add(shooter)
                 self.traps.append(shooter)
 
-        for obj in self.allSprites:
-            self.camera.add(obj)
+
+        self.camera.add(self.allSprites)

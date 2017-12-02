@@ -1,5 +1,6 @@
 import os
 import pygame
+import math
 
 from LDEngine.ldLib.tools.ImageBox import rectSurface
 from LDEngine.ldLib.animation.Animation import Animation
@@ -49,10 +50,13 @@ class Player(pygame.sprite.Sprite):
         self.maxSpeedx = 5
         self.maxSpeedyUp = 25
         self.maxSpeedyDown = 10
-        self.accx = 2
-        self.accy = 2
         self.jumpSpeed = 15
         self.springJumpSpeed = 25
+        self.accx = 2
+        self.accy = 2
+
+        # At this value, the player is slowed to 1/2 of his speed.
+        self.halfTagWeight = 100
 
         self.isFrictionApplied = True
         self.isGravityApplied = True
@@ -123,14 +127,14 @@ class Player(pygame.sprite.Sprite):
             rule.onMoveY(self)
 
     def capSpeed(self):
-        if self.speedx > 0 and self.speedx > self.maxSpeedx:
-            self.speedx = self.maxSpeedx
-        if self.speedx < 0 and self.speedx < -self.maxSpeedx:
-            self.speedx = -self.maxSpeedx
+        if self.speedx > 0 and self.speedx > self.maxSpeedx * self.decSpeed():
+            self.speedx = self.maxSpeedx * self.decSpeed()
+        if self.speedx < 0 and self.speedx < -self.maxSpeedx * self.decSpeed():
+            self.speedx = -self.maxSpeedx * self.decSpeed()
         if self.speedy > 0 and self.speedy > self.maxSpeedyDown:
             self.speedy = self.maxSpeedyDown
-        if self.speedy < 0 and self.speedy < -self.maxSpeedyUp:
-            self.speedy = -self.maxSpeedyUp
+        if self.speedy < 0 and self.speedy < -self.maxSpeedyUp * self.decSpeed():
+            self.speedy = -self.maxSpeedyUp * self.decSpeed()
 
     def updateSpeedRight(self):
         self.speedx += self.accx
@@ -211,8 +215,8 @@ class Player(pygame.sprite.Sprite):
             self.updateSpeedLeft()
         if self.upPressed:
             self.updateSpeedUp()
-        if self.downPressed:
-            self.updateSpeedDown()
+        # if self.downPressed:
+        #     self.updateSpeedDown()
         if self.leftMousePressed:
             pass
         if self.rightMousePressed:
@@ -223,11 +227,17 @@ class Player(pygame.sprite.Sprite):
             pass
 
     def jump(self):
-        self.speedy = -self.jumpSpeed
+        self.speedy = -self.jumpSpeed * self.decSpeed()
 
     def hurt(self):
         # TODO: Destroy best treasure and make the player invincible for a little bit(see LD39)
         pass
 
-    def slowedSpeed(self):
-        pass
+    # Decelerate speed
+    def decSpeed(self):
+
+        backPackWeight = 200
+        if backPackWeight < self.halfTagWeight:
+            return 1 - backPackWeight / self.halfTagWeight / 2
+        else:
+            return 1/2*math.exp(1-backPackWeight / self.halfTagWeight)

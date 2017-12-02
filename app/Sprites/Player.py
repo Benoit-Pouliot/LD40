@@ -225,5 +225,9 @@ class Player(pygame.sprite.Sprite):
     def jump(self):
         self.speedy = -self.jumpSpeed
 
+    def hurt(self):
+        # TODO: Destroy best treasure and make the player invincible for a little bit(see LD39)
+        pass
+
     def slowedSpeed(self):
         pass

@@ -74,3 +74,11 @@ class Backpack():
                     numberOfItem = numberOfItem + 1
         return numberOfItem == 0
 
+    def isFull(self):
+        numberOfItem = 0
+        for list in self.items:
+            for index in range(len(list)):
+                if list[index]:
+                    numberOfItem = numberOfItem + 1
+        return numberOfItem == (self.width * self.height)
+

@@ -43,14 +43,13 @@ class LogicHandler(LogicHandler):
         collisionList = pygame.sprite.spritecollide(self.sceneData.player, self.sceneData.itemGroup,
                                                     False)
         for item in collisionList:
-            self.sceneData.player.pickUpItem(item.id)
-            item.pickedUp()
-
+            if not self.sceneData.backpack.isFull():
+                self.sceneData.player.pickUpItem(item.id)
+                item.pickedUp()
 
     def handleBridgeCollision(self):
         collisionList = pygame.sprite.spritecollide(self.sceneData.player, self.sceneData.bridgeGroup,
                                                     False)
-
         playerOnBridge = False
 
         for bridge in collisionList:

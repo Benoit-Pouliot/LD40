@@ -47,7 +47,7 @@ class Player(pygame.sprite.Sprite):
         self.maxSpeedx = 7
         self.maxSpeedyUp = 35
         self.maxSpeedyDown = 10
-        self.jumpSpeed = 20
+        self.jumpSpeed = 25
         self.springJumpSpeed = 35
         self.accx = 2
         self.accy = 2
@@ -284,6 +284,8 @@ class Player(pygame.sprite.Sprite):
         backPackWeight = 0
         if TAG_BP == 1:
             backPackWeight = 50
+        if TAG_AGB == 1:
+            backPackWeight = 25
 
         if backPackWeight < self.halfTagWeight:
             return 1 - backPackWeight / self.halfTagWeight / 2

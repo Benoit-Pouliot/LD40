@@ -83,7 +83,7 @@ JUMP = 1
 CLIMBING = 2 #When on a ladder
 
 #Physics
-GRAVITY = 1.5
+GRAVITY = 1.4
 FRICTION = 1
 
 #Projectiles
@@ -128,7 +128,7 @@ TAG_BP = 0
 TAG_MARIE = 0
 TAG_PHIL = 0
 TAP_DIAGNOSE_MAP_TMX = 0
-
+TAG_AGB = 0
 # Load settings_local.py if exist
 try:
     from app.settings_local import *

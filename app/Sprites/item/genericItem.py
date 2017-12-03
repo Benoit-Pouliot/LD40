@@ -26,6 +26,7 @@ class GenericItem(GenericSprite):
 
         self.speedx = 0
         self.speedy = 0
+        self.springJumpSpeed = 35
 
         self.isFrictionApplied = False
         self.isGravityApplied = False

@@ -18,6 +18,7 @@ from LDEngine.ldLib.Sprites.Player.JumpState import JumpState
 from LDEngine.ldLib.Sprites.Player.FallingState import FallingState
 from LDEngine.ldLib.Sprites.Player.ClimbingState import ClimbingState
 from app.Sprites.item.genericItem import GenericItem
+from LDEngine.ldLib.tools.Cooldown import Cooldown
 
 from app.settings import *
 
@@ -35,6 +36,7 @@ class Player(pygame.sprite.Sprite):
 
         self.imageTransparent = rectSurface((32, 32), WHITE, 3)
         self.imageTransparent.set_colorkey(COLORKEY)
+        self.imageTransparent.set_alpha(0)
 
         self.rect = self.image.get_rect()  # Position centrée du player
         self.x = x
@@ -89,6 +91,9 @@ class Player(pygame.sprite.Sprite):
         self.collisionRules.append(CollisionWithSpring())
         self.collisionRules.append(CollisionWithSpike())
 
+        self.invincibleCooldown = Cooldown(60)
+        self.flashduration = 8
+
         self._state = IdleState()
         self.nextState = None
 
@@ -116,8 +121,6 @@ class Player(pygame.sprite.Sprite):
             # If not moving in x, we hard-fix him to help to pass between floor
             if self.speedx == 0:
                 self.x = self.rect.x
-
-
 
         # Update animation instead
         if self.speedx > 0 or (self.speedx == 0 and self.facingSide == RIGHT):
@@ -153,7 +156,13 @@ class Player(pygame.sprite.Sprite):
                 self.animation = self.animCache.fallL
             self.facingSide = LEFT
 
+        # Replace to make visual flash in invincible mode.
+        if not self.invincibleCooldown.isZero:
+            if self.flashduration-3 <= self.invincibleCooldown.value % self.flashduration:
+                self.image = self.imageTransparent
+
         self.updateCollisionMask()
+        self.updateCooldowns()
         self.updatePressedKeys()
 
     def moveX(self):
@@ -278,9 +287,18 @@ class Player(pygame.sprite.Sprite):
     def jump(self):
         self.speedy = -self.jumpSpeed * self.decSpeed()
 
+    def updateCooldowns(self):
+        # For invincibitlity
+        self.invincibleCooldown.update()
+
     def hurt(self):
-        # TODO: Destroy best treasure and make the player invincible for a little bit(see LD39)
-        pass
+        if self.invincibleCooldown.isZero:
+            #self.hurtSound.play()
+            self.invincibleOnHit()
+            print("HURT!!!")
+
+    def invincibleOnHit(self):
+        self.invincibleCooldown.start()
 
     # Decelerate speed
     def decSpeed(self):

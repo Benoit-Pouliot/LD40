@@ -16,6 +16,7 @@ from LDEngine.ldLib.Sprites.Player.IdleState import IdleState
 from LDEngine.ldLib.Sprites.Player.JumpState import JumpState
 from LDEngine.ldLib.Sprites.Player.FallingState import FallingState
 from LDEngine.ldLib.Sprites.Player.ClimbingState import ClimbingState
+from app.Sprites.item.genericItem import GenericItem
 
 from app.settings import *
 
@@ -293,6 +294,23 @@ class Player(pygame.sprite.Sprite):
         self.mapData.menuItem.updateItemImages()
 
     def dropItem(self, item):
+        if self.facingSide == RIGHT:
+            itemSprite = GenericItem(self.x + 40, self.y - 40)
+            itemSprite.speedx = 10
+        if self.facingSide == LEFT:
+            itemSprite = GenericItem(self.x - 40, self.y - 40)
+            itemSprite.speedx = -10
+        itemSprite.setId(item.id)
+        itemSprite.isGravityApplied = True
+        itemSprite.isFrictionApplied = True
+        itemSprite.mapData = self.mapData
+        itemSprite.collisionRules.append(CollisionWithNothing())  # Gotta be first in the list to work properly
+        itemSprite.collisionRules.append(CollisionWithLadder())  # Need to be second
+        itemSprite.collisionRules.append(CollisionWithSolid())
+        itemSprite.collisionRules.append(CollisionWithSpring())
+        self.mapData.allSprites.add(itemSprite)
+        self.mapData.camera.add(itemSprite)
+        self.mapData.itemGroup.add(itemSprite)
         self.backPackWeight -= item.weight
 
 class SetupAnimations():

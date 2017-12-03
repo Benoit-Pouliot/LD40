@@ -42,4 +42,3 @@ class ScenePhysics:
                     sprite.speedy += GRAVITY
             except AttributeError:
                 pass
-

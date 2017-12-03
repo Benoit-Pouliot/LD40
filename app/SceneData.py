@@ -12,7 +12,7 @@ import pygame
 
 class SceneData(SceneDataTMX):
     def __init__(self, drawer):
-        super().__init__("CavernMap", "StartPointWorld", (SCREEN_WIDTH,SCREEN_HEIGHT))
+        super().__init__("LocalCavernMap", "StartPointWorld", (SCREEN_WIDTH,SCREEN_HEIGHT))
 
         self.player = Player(self.spawmPointPlayerx, self.spawmPointPlayery, self)
         self.drawer = drawer
@@ -33,8 +33,13 @@ class SceneData(SceneDataTMX):
         # Spawn boss
         for obj in self.tmxData.objects:
             if obj.name == "Trap":
-                # TODO: Add direction parameter
-                shooter = ScheduledShooter(obj.x, obj.y, self)
+                Direction = "Left"
+
+                for nameProp, prop in obj.properties.items():
+                    if nameProp == "direction":
+                        Direction = prop
+
+                shooter = ScheduledShooter(obj.x, obj.y, self, direction=Direction)
                 self.allSprites.add(shooter)
                 self.traps.append(shooter)
             elif obj.name == "Bridgeleft":

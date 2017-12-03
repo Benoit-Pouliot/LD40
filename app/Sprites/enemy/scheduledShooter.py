@@ -15,12 +15,9 @@ class ScheduledShooter(Enemy):
 
         self.name = "scheduledShooter"
 
-        self.imageEnemy = pygame.image.load(os.path.join('Sprite', 'trap.png'))
+        self.image = pygame.image.load(os.path.join('Sprite', 'trap.png'))
 
-        self.frames = [self.imageEnemy]
-        self.animation = Animation(self,self.frames,20)
-
-        self.rect = self.imageEnemy.get_rect()
+        self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
 
@@ -40,30 +37,35 @@ class ScheduledShooter(Enemy):
         self.dictProperties = {'direction': self.setDirection}
 
     def setDirection(self, direction):
-        if direction is "Right":
-            self.direction = "Right"
-        else:
-            self.direction = "Left"
+        if direction == "Right":
+            self.direction = RIGHT
+            self.image = pygame.transform.flip(self.image, True, False)
+        elif direction == "Left" or direction is None:
+            self.direction = LEFT
+        elif direction == "Up":
+            self.direction = UP
+            self.image = pygame.transform.rotate(self.image, 270)
+        elif direction == "Down":
+            self.direction = DOWN
+            self.image = pygame.transform.rotate(self.image, 90)
 
     def setTheMap(self, theMap):
         self.theMap = theMap
 
     def update(self):
-
-        self.animation.update(self)
         self.updateCollisionMask()
 
         self.imageIterShoot += 1
         if self.imageIterShoot > self.imageWaitNextShoot:
 
-            if self.direction == "Right":
+            if self.direction == RIGHT:
                 bullet = FireBullet(self.rect.x + self.rect.width + 1, self.rect.centery, RIGHT, False)
-            elif self.direction == "Left":
+            elif self.direction == LEFT:
                 bullet = FireBullet(self.rect.x - 10, self.rect.centery, LEFT, False)
-            elif self.direction == "Up":
-                bullet = FireBullet(self.rect.x - 10, self.rect.centery, UP, False)
+            elif self.direction == UP:
+                bullet = FireBullet(self.rect.x, self.rect.y - 20, UP, False)
             else:
-                bullet = FireBullet(self.rect.x - 10, self.rect.centery, DOWN, False)
+                bullet = FireBullet(self.rect.x, self.rect.y + 30, DOWN, False)
 
             self.theMap.camera.add(bullet)
             self.theMap.allSprites.add(bullet)

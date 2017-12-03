@@ -13,10 +13,21 @@ class FireBullet(Bullet):
 
         image1 = pygame.image.load(os.path.join('Sprite', 'bullet.png'))
         image2 = pygame.image.load(os.path.join('Sprite', 'bullet_2.png'))
-        self.frames = [image1,image2]
-        self.image = self.frames[0]
 
-        self.animation = self.stand_animation(self.frames,6)
+        if direction == RIGHT:
+            image1 = pygame.transform.flip(image1, True, False)
+            image2 = pygame.transform.flip(image2, True, False)
+        elif direction == LEFT:
+            pass
+        elif direction == UP:
+            image1 = pygame.transform.rotate(image1, 270)
+            image2 = pygame.transform.rotate(image2, 270)
+        elif direction == DOWN:
+            image1 = pygame.transform.rotate(image1, 90)
+            image2 = pygame.transform.rotate(image2, 90)
+
+        self.frames = [image1, image2]
+        self.image = image1
 
         self.direction = direction
 
@@ -24,11 +35,24 @@ class FireBullet(Bullet):
         self.rect.y = y - self.rect.height / 2
 
         if direction == RIGHT:
-            self.speedx = 10
+            self.speedx = 6
+            self.speedy = 0
             self.rect.x = x
         elif direction == LEFT:
-            self.speedx = -10
+            self.speedx = -6
+            self.speedy = 0
             self.rect.x = x - self.rect.width
-        self.speedy = 0
+        elif direction == UP:
+            self.speedx = 0
+            self.speedy = -6
+            self.rect.x = x
+            self.rect.y = y
+        elif direction == DOWN:
+            self.speedx = 0
+            self.speedy = 6
+            self.rect.x = x
+            self.rect.y = y
+
+        self.animation = self.stand_animation(self.frames,6)
 
         self.friendly = friendly

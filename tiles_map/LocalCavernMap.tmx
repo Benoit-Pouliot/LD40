@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="25" height="19" tilewidth="32" tileheight="32" nextobjectid="9">
+<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="25" height="19" tilewidth="32" tileheight="32" nextobjectid="12">
  <tileset firstgid="1" name="collision_set" tilewidth="32" tileheight="32" tilecount="50" columns="5">
   <image source="img/collision_set.png" width="160" height="320"/>
  </tileset>
@@ -199,8 +199,27 @@
   </object>
  </objectgroup>
  <objectgroup name="Sprite_OL">
-  <object id="5" name="Trap" type="trap" x="736" y="512" width="32" height="32"/>
+  <object id="5" name="Trap" type="trap" x="736" y="512" width="32" height="32">
+   <properties>
+    <property name="direction" value="Left"/>
+   </properties>
+  </object>
   <object id="6" name="Bridgeleft" type="trap" x="416" y="512" width="32" height="32"/>
   <object id="7" name="Bridgeright" type="trap" x="448" y="512" width="32" height="32"/>
+  <object id="9" name="Trap" type="trap" x="30.3333" y="509" width="32" height="32">
+   <properties>
+    <property name="direction" value="Right"/>
+   </properties>
+  </object>
+  <object id="10" name="Trap" type="trap" x="256.333" y="30.6667" width="32" height="32">
+   <properties>
+    <property name="direction" value="Down"/>
+   </properties>
+  </object>
+  <object id="11" name="Trap" type="trap" x="577.333" y="513.333" width="32" height="32">
+   <properties>
+    <property name="direction" value="Up"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

@@ -318,38 +318,58 @@ class Player(pygame.sprite.Sprite):
 class SetupAnimations():
     def __init__(self):
 
-        # Code for animation
-        # imageShapeRight = [pygame.image.load(os.path.join('img', 'playerRight.png')),
-        #                         pygame.image.load(os.path.join('img', 'playerRight1.png')),
-        #                         pygame.image.load(os.path.join('img', 'playerRight2.png'))]
-        # imageShapeLeft = [pygame.transform.flip(img, True, False) for img in imageShapeRight]
+        imgIdleR = [pygame.image.load(os.path.join('img/playerImg', 'thief_idle_r_01.png')),
+                    pygame.image.load(os.path.join('img/playerImg', 'thief_idle_r_02.png')),
+                    pygame.image.load(os.path.join('img/playerImg', 'thief_idle_r_01.png')),
+                    pygame.image.load(os.path.join('img/playerImg', 'thief_idle_r_03.png'))]
+        imgIdleL = [pygame.image.load(os.path.join('img/playerImg', 'thief_idle_l_01.png')),
+                    pygame.image.load(os.path.join('img/playerImg', 'thief_idle_l_02.png')),
+                    pygame.image.load(os.path.join('img/playerImg', 'thief_idle_l_01.png')),
+                    pygame.image.load(os.path.join('img/playerImg', 'thief_idle_l_03.png'))]
+        imgIdleMoveR = [pygame.image.load(os.path.join('img/playerImg', 'thief_idle_move_r_01.png')),
+                        pygame.image.load(os.path.join('img/playerImg', 'thief_idle_move_r_02.png')),
+                        pygame.image.load(os.path.join('img/playerImg', 'thief_idle_move_r_03.png'))]
+        imgIdleMoveL = [pygame.image.load(os.path.join('img/playerImg', 'thief_idle_move_l_01.png')),
+                        pygame.image.load(os.path.join('img/playerImg', 'thief_idle_move_l_02.png')),
+                        pygame.image.load(os.path.join('img/playerImg', 'thief_idle_move_l_03.png'))]
+        imgJumpL = [pygame.image.load(os.path.join('img/playerImg', 'thief_jump_l_01.png')),
+                    pygame.image.load(os.path.join('img/playerImg', 'thief_jump_l_02.png'))]
+        imgJumpR = [pygame.image.load(os.path.join('img/playerImg', 'thief_jump_r_01.png')),
+                    pygame.image.load(os.path.join('img/playerImg', 'thief_jump_r_02.png'))]
 
-        sizeX = 30
-        sizeY = 30
+        imgClimbR = [pygame.image.load(os.path.join('img/playerImg', 'thief_climb_r_01.png')),
+                     pygame.image.load(os.path.join('img/playerImg', 'thief_climb_still_r_02.png'))]
+        imgClimbL = [pygame.image.load(os.path.join('img/playerImg', 'thief_climb_l_01.png')),
+                     pygame.image.load(os.path.join('img/playerImg', 'thief_climb_still_l_02.png'))]
+        imgClimbMoveR = [pygame.image.load(os.path.join('img/playerImg', 'thief_climb_r_01.png')),
+                         pygame.image.load(os.path.join('img/playerImg', 'thief_climb_r_02.png')),
+                         pygame.image.load(os.path.join('img/playerImg', 'thief_climb_r_01.png')),
+                         pygame.image.load(os.path.join('img/playerImg', 'thief_climb_r_03.png'))]
+        imgClimbMoveL = [pygame.image.load(os.path.join('img/playerImg', 'thief_climb_l_01.png')),
+                         pygame.image.load(os.path.join('img/playerImg', 'thief_climb_l_02.png')),
+                         pygame.image.load(os.path.join('img/playerImg', 'thief_climb_l_01.png')),
+                         pygame.image.load(os.path.join('img/playerImg', 'thief_climb_l_03.png'))]
+        imgFallL = [pygame.image.load(os.path.join('img/playerImg', 'thief_fall_l_01.png')),
+                    pygame.image.load(os.path.join('img/playerImg', 'thief_fall_l_02.png'))]
+        imgFallR = [pygame.image.load(os.path.join('img/playerImg', 'thief_fall_r_01.png')),
+                    pygame.image.load(os.path.join('img/playerImg', 'thief_fall_r_02.png'))]
 
-        imgIdleR = [rectSurface((sizeX, sizeY), PURPLE)]
-        imgIdleMoveR = [rectSurface((sizeX, sizeY), ORANGE)]
-        imgJumpR = [rectSurface((sizeX, sizeY), BLUE)]
-        imgClimbR = [rectSurface((sizeX, sizeY), RED)]
-        imgClimbMoveR = [rectSurface((sizeX, sizeY), GREEN)]
-        imgFallR = [rectSurface((sizeX, sizeY), YELLOW)]
-
-        imgIdleL = [pygame.transform.flip(img, True, False) for img in imgIdleR]
-        imgIdleMoveL = [pygame.transform.flip(img, True, False) for img in imgIdleMoveR]
-        imgJumpL = [pygame.transform.flip(img, True, False) for img in imgJumpR]
-        imgClimbL = [pygame.transform.flip(img, True, False) for img in imgClimbR]
-        imgClimbMoveL = [pygame.transform.flip(img, True, False) for img in imgClimbMoveR]
-        imgFallL = [pygame.transform.flip(img, True, False) for img in imgFallR]
+        # imgIdleL = [pygame.transform.flip(img, True, False) for img in imgIdleR]
+        # imgIdleMoveL = [pygame.transform.flip(img, True, False) for img in imgIdleMoveR]
+        # imgJumpR = [pygame.transform.flip(img, True, False) for img in imgJumpL]
+        # imgClimbL = [pygame.transform.flip(img, True, False) for img in imgClimbR]
+        # imgClimbMoveL = [pygame.transform.flip(img, True, False) for img in imgClimbMoveR]
+        # imgFallR = [pygame.transform.flip(img, True, False) for img in imgFallL]
 
         self.idleR = Animation(imgIdleR, 30, True)
         self.idleL = Animation(imgIdleL, 30, True)
-        self.idleMoveR = Animation(imgIdleMoveR, 30, True)
-        self.idleMoveL = Animation(imgIdleMoveL, 30, True)
-        self.jumpR = Animation(imgJumpR, 30, True)
-        self.jumpL = Animation(imgJumpL, 30, True)
+        self.idleMoveR = Animation(imgIdleMoveR, 10, True)
+        self.idleMoveL = Animation(imgIdleMoveL, 10, True)
+        self.jumpR = Animation(imgJumpR, 6, True)
+        self.jumpL = Animation(imgJumpL, 6, True)
         self.climbR = Animation(imgClimbR, 30, True)
         self.climbL = Animation(imgClimbL, 30, True)
-        self.climbMoveR = Animation(imgClimbMoveR, 30, True)
-        self.climbMoveL = Animation(imgClimbMoveL, 30, True)
-        self.fallR = Animation(imgFallR, 30, True)
-        self.fallL = Animation(imgFallL, 30, True)
+        self.climbMoveR = Animation(imgClimbMoveR, 20, True)
+        self.climbMoveL = Animation(imgClimbMoveL, 20, True)
+        self.fallR = Animation(imgFallR, 4, True)
+        self.fallL = Animation(imgFallL, 4, True)

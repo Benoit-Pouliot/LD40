@@ -8,6 +8,7 @@ from LDEngine.ldLib.scene.GameData import GameData
 from app.SceneData import SceneData
 from app.LogicHandler import LogicHandler
 from app.EventHandler import EventHandler
+from app.SceneHandler import SceneHandler
 
 from app.Drawer import Drawer
 
@@ -23,10 +24,10 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode(screenSize)
     screen.fill(WHITE)
 
-    pygame.display.set_caption("TestDialogBox")
+    pygame.display.set_caption("Weight in Gold")
 
     # Init
-    pygame.mixer.pre_init(22050 , -16, 2, 4096)
+    pygame.mixer.pre_init(22050, -16, 2, 4096)
     # pygame.mixer.init()
     pygame.init()
     pygame.font.init()
@@ -38,12 +39,5 @@ if __name__ == '__main__':
     if TAG_BP == 1:
         initNameMap = "CavernMap"
 
-    # Create the test scene
-    drawer = Drawer()
-    gameData = GameData()
-    gameData.sceneData = SceneData(drawer, initNameMap)
-    logicHandler = LogicHandler(gameData)
-    eventHandler = EventHandler(gameData.sceneData)
-
-    testScene = Scene(screen, gameData, logicHandler, eventHandler, drawer)
-    testScene.run()
+    sceneHandler = SceneHandler(screen)
+    sceneHandler.mainLoop()

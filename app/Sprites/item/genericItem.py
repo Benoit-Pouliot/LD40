@@ -1,5 +1,6 @@
 from LDEngine.ldLib.Sprites.GenericSprite import GenericSprite
 from app.ItemDatabase import ItemDatabase
+from LDEngine.ldLib.collision.collisionMask import CollisionMask
 
 #
 # Generic item to create
@@ -26,6 +27,10 @@ class GenericItem(GenericSprite):
         intId = int(id)
         if intId < self.itemDatabase.size:
             self.image = self.itemDatabase.itemList[intId].image
+            tempRect = self.image.get_rect()
+            self.rect.width = tempRect.width
+            self.rect.height = tempRect.height
+            self.collisionMask = CollisionMask(self.rect.x, self.rect.y, self.rect.width, self.rect.height)
 
     def pickedUp(self):
         self.kill()

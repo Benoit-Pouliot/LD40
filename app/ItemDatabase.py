@@ -8,7 +8,7 @@ class ItemDatabase():
         self.itemList = [None] * self.size
 
         # Value, Weight, Image
-        self.itemList[0] = Item(10, 1, pygame.image.load(os.path.join('img', 'RedRupee.png')))
+        self.itemList[0] = Item(10, 0, pygame.image.load(os.path.join('img', 'RedRupee.png')))
         # self.itemList[1] = Item(10, 1, pygame.image.load(os.path.join('img', 'BlueRupee.png')))
         # self.itemList[2] = Item(10, 1, pygame.image.load(os.path.join('img', 'GreenRupee.png')))
         self.itemList[1] = Item(10, 30, pygame.image.load(os.path.join('img', 'Chest.png')))

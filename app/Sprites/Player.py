@@ -45,6 +45,8 @@ class Player(pygame.sprite.Sprite):
         self.soundSpring.set_volume(1)
         self.soundBroke = pygame.mixer.Sound('music/brokenGlass_01.wav')
         self.soundBroke.set_volume(.4)
+        self.soundHitHurt = pygame.mixer.Sound('music/hitHurt_01.wav')
+        self.soundHitHurt.set_volume(.4)
 
         self.imageTransparent = rectSurface((32, 32), WHITE, 3)
         self.imageTransparent.set_colorkey(COLORKEY)
@@ -312,14 +314,17 @@ class Player(pygame.sprite.Sprite):
 
     def hurt(self):
         if self.invincibleCooldown.isZero:
-            #self.hurtSound.play()
-            self.mapData.menuItem.destroyFirstItem()
-            self.invincibleOnHit()
 
             self.mapData.menuItem.unselectItem()
 
             if self.mapData.playSounds:
-                self.soundBroke.play()
+                if not self.mapData.backpack.isEmpty():
+                    self.soundBroke.play()
+                else:
+                    self.soundHitHurt.play()
+
+            self.mapData.menuItem.destroyFirstItem()
+            self.invincibleOnHit()
 
     def invincibleOnHit(self):
         self.invincibleCooldown.start()

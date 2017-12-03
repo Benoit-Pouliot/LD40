@@ -301,14 +301,15 @@ class SetupAnimations():
         #                         pygame.image.load(os.path.join('img', 'playerRight2.png'))]
         # imageShapeLeft = [pygame.transform.flip(img, True, False) for img in imageShapeRight]
 
-        size = 28
+        sizeX = 30
+        sizeY = 45
 
-        imgIdleR = [rectSurface((size, size), PURPLE)]
-        imgIdleMoveR = [rectSurface((size, size), ORANGE)]
-        imgJumpR = [rectSurface((size, size), BLUE)]
-        imgClimbR = [rectSurface((size, size), RED)]
-        imgClimbMoveR = [rectSurface((size, size), GREEN)]
-        imgFallR = [rectSurface((size, size), YELLOW)]
+        imgIdleR = [rectSurface((sizeX, sizeY), PURPLE)]
+        imgIdleMoveR = [rectSurface((sizeX, sizeY), ORANGE)]
+        imgJumpR = [rectSurface((sizeX, sizeY), BLUE)]
+        imgClimbR = [rectSurface((sizeX, sizeY), RED)]
+        imgClimbMoveR = [rectSurface((sizeX, sizeY), GREEN)]
+        imgFallR = [rectSurface((sizeX, sizeY), YELLOW)]
 
         imgIdleL = [pygame.transform.flip(img, True, False) for img in imgIdleR]
         imgIdleMoveL = [pygame.transform.flip(img, True, False) for img in imgIdleMoveR]

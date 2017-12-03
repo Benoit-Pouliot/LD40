@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="11">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="12">
  <tileset firstgid="1" name="collision_set" tilewidth="32" tileheight="32" tilecount="50" columns="5">
   <image source="img/collision_set.png" width="160" height="320"/>
  </tileset>
@@ -848,7 +848,7 @@
   <object id="6" name="Bridgeright" type="trap" x="1344.33" y="3105" width="32" height="32"/>
   <object id="7" name="Bridgeleft" type="trap" x="1312.33" y="3105" width="32" height="32"/>
   <object id="9" name="Bridgeright" type="trap" x="928.667" y="2594.33" width="32" height="32"/>
-  <object id="10" name="Trap" type="trap" x="130" y="3053" width="32" height="32"/>
+  <object id="11" name="Trap" type="trap" x="167" y="3045" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="Sprite_OL"/>
 </map>

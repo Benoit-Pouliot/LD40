@@ -7,6 +7,7 @@ from LDEngine.ldLib.scene.GameData import GameData
 
 from app.SceneData import SceneData
 from app.LogicHandler import LogicHandler
+from app.EventHandler import EventHandler
 
 from app.Drawer import Drawer
 
@@ -42,6 +43,7 @@ if __name__ == '__main__':
     gameData = GameData()
     gameData.sceneData = SceneData(drawer, initNameMap)
     logicHandler = LogicHandler(gameData)
+    eventHandler = EventHandler(gameData.sceneData)
 
-    testScene = Scene(screen, gameData, logicHandler, drawer)
+    testScene = Scene(screen, gameData, logicHandler, eventHandler, drawer)
     testScene.run()

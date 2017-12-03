@@ -30,6 +30,8 @@ class SceneData(SceneDataTMX):
         self.spritesHUD.add(self.menuItem)
         self.notifyGroup.add(self.menuItem)
 
+        self.menuItemIsDisplayed = True
+
         # Spawn boss
         for obj in self.tmxData.objects:
             if obj.name == "Trap":

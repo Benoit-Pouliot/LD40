@@ -1,6 +1,7 @@
 import os
 import pygame
 import math
+import time
 
 from LDEngine.ldLib.tools.ImageBox import rectSurface
 from LDEngine.ldLib.animation.Animation import Animation
@@ -77,6 +78,7 @@ class Player(pygame.sprite.Sprite):
         self.backPackWeight = self.mapData.backpack.getTotalWeight()
 
         self.isAlive = True
+        self.timeStart = time.time()
 
         self.collisionMask = CollisionMask(self.rect.x, self.rect.y, self.rect.width, self.rect.height)
         self.collisionRules = []

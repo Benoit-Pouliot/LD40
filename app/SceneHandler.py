@@ -44,7 +44,8 @@ class SceneHandler:
                 self.logicHandler = TitleSceneLogicHandler(self.gameData)
                 self.runningScene = TitleScreen(self.screen, self.gameData, self.logicHandler)
             elif self.runningScene.nextScene == CREDIT_SCREEN:
-                self.gameData.sceneData = CreditSceneData()
+                #self.gameData.sceneData = CreditSceneData()
+                self.gameData.sceneData = EndingSceneData()
                 self.logicHandler = TitleSceneLogicHandler(self.gameData)
                 self.runningScene = TitleScreen(self.screen, self.gameData, self.logicHandler)
             elif self.runningScene.nextScene == PLATFORM_SCREEN:

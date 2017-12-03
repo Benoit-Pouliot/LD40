@@ -20,6 +20,7 @@ class LogicHandler(LogicHandler):
         self.handleBulletCollision()
         self.handleBridgeCollision()
         self.handleItemCollision()
+        self.handleZoneCollision(self.sceneData.player)
 
     def handleCollision(self):
         for sprite in self.gameData.sceneData.bulletGroup:
@@ -62,3 +63,24 @@ class LogicHandler(LogicHandler):
 
         if self.sceneData.player.isOnBridge != playerOnBridge:
             self.sceneData.player.isOnBridge = playerOnBridge
+
+    def handleZoneCollision(self, player):
+        for obj in self.sceneData.tmxData.objects:
+            if self.isPlayerIsInZone(player, obj) == True:
+                if obj.name == "chest":
+                    self.emptyBackpackInChest()
+
+    def isPlayerIsInZone(self, player, zone):
+        if player.rect.centerx  >= zone.x and \
+           player.rect.centerx <= zone.x + zone.width and \
+           player.rect.centery >= zone.y and \
+           player.rect.centery <= zone.y + zone.height:
+           return True
+        else:
+           return False
+
+    def emptyBackpackInChest(self):
+        self.sceneData.score += self.sceneData.backpack.getTotalValue()
+        self.sceneData.backpack.empty()
+        self.sceneData.player.backPackWeight = 0
+        self.sceneData.menuItem.updateItemImages()

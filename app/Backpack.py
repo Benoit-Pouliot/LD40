@@ -32,3 +32,18 @@ class Backpack():
                     totalWeight += item.weight
 
         return totalWeight
+
+    def getTotalValue(self):
+        totalValue = 0
+
+        for list in self.items:
+            for item in list:
+                if item != None:
+                    totalValue += item.value
+
+        return totalValue
+
+    def empty(self):
+        for list in self.items:
+            for index in range(len(list)):
+                list[index] = None

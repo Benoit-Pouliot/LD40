@@ -15,6 +15,8 @@ class SceneData(SceneDataTMX):
     def __init__(self, drawer, nameMap="GameMap"):
         super().__init__(nameMap, "StartPointWorld", (SCREEN_WIDTH,SCREEN_HEIGHT))
 
+        self.score = 0
+
         self.drawer = drawer
 
         self.traps = []

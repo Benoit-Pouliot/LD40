@@ -23,6 +23,7 @@ class EventHandler():
 
     def toggleItemMenu(self):
         if self.sceneData.menuItemIsDisplayed:
+            self.sceneData.menuItem.unselectItem()
             self.sceneData.spritesHUD.remove(self.menuItem)
             self.sceneData.notifyGroup.remove(self.menuItem)
             self.sceneData.menuItemIsDisplayed = False

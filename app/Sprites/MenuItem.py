@@ -89,10 +89,13 @@ class MenuItem(pygame.sprite.Sprite):
     def dropItem(self):
         self.player.dropItem(self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]])
         self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]] = None
+        self.unselectItem()
+        self.updateItemImages()
+
+    def unselectItem(self):
         self.selectedItem = None
         self.selectedSlot = None
         self.drawer.imageOnMouse = None
-        self.updateItemImages()
 
     def destroyFirstItem(self):
         coordinates = self.backpack.returnFirstItemCoordinates()

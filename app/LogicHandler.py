@@ -94,6 +94,7 @@ class LogicHandler(LogicHandler):
         self.sceneData.score += self.sceneData.backpack.getTotalValue()
         self.sceneData.backpack.empty()
         self.sceneData.player.backPackWeight = 0
+        self.sceneData.menuItem.unselectItem()
         self.sceneData.menuItem.updateItemImages()
 
     def endGame(self):

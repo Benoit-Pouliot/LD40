@@ -316,6 +316,8 @@ class Player(pygame.sprite.Sprite):
             self.mapData.menuItem.destroyFirstItem()
             self.invincibleOnHit()
 
+            self.mapData.menuItem.unselectItem()
+
             if self.mapData.playSounds:
                 self.soundBroke.play()
 

@@ -13,7 +13,7 @@ class ScheduledShooter(Enemy):
     def __init__(self, x, y, theMap=None, direction="Left"):
         super().__init__(x, y, os.path.join('Sprite', 'trap.png'))
 
-        self.name = "enemyShooter"
+        self.name = "scheduledShooter"
 
         self.imageEnemy = pygame.image.load(os.path.join('Sprite', 'trap.png'))
 

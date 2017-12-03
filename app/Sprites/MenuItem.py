@@ -16,6 +16,7 @@ class MenuItem(pygame.sprite.Sprite):
 
         self.menuGrid = MenuGrid(self.x, self.y, backpack.width, backpack.height, 32, 32, 1)
         self.surface = pygame.Surface((self.menuGrid.totalWidth, self.menuGrid.totalHeight))
+        self.surface.set_alpha(128)
         self.surface.blit(self.menuGrid.image, (0,0))
 
         for i in range(backpack.width):

@@ -24,27 +24,9 @@ class Player(pygame.sprite.Sprite):
         self.name = "player"
 
         # Code for animation
-        self.imageShapeRight = [pygame.image.load(os.path.join('img', 'playerRight.png')),
-                                pygame.image.load(os.path.join('img', 'playerRight1.png')),
-                                pygame.image.load(os.path.join('img', 'playerRight2.png'))]
-        self.imageShapeLeft = [pygame.transform.flip(img, True, False) for img in self.imageShapeRight]
-
-        self.imgIdle = [rectSurface((32, 32), PURPLE)]
-        self.imgJump = [rectSurface((32, 32), BLUE)]
-        self.imgClim = [rectSurface((32, 32), RED)]
-        self.imgFall = [rectSurface((32, 32), YELLOW)]
-
-        self.animationIdle = Animation(self.imgIdle, 30, True)
-        self.animationJump = Animation(self.imgJump, 30, True)
-        self.animationClim = Animation(self.imgClim, 30, True)
-        self.animationFall = Animation(self.imgFall, 30, True)
-
-        self.image = self.imageShapeRight[0]
-
-        self.animationLeft = Animation(self.imageShapeLeft, 30, True)
-        self.animationRight = Animation(self.imageShapeRight, 30, True)
-        self.animation = self.animationRight
-
+        self.animCache = SetupAnimations()
+        self.animation = self.animCache.idleR
+        self.image = self.animation.update()
         #End of code for animation
 
         self.imageTransparent = rectSurface((32, 32), WHITE, 3)
@@ -117,22 +99,30 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = self.y
 
         # Update animation instead
-        if self.speedx > 0:
-            self.animation = self.animationRight
+        if self.speedx > 0 or (self.speedx == 0 and self.facingSide == RIGHT):
+            if isinstance(self.state, IdleState) and self.speedx == 0:
+                self.animation = self.animCache.idleR
+            elif isinstance(self.state, IdleState):
+                self.animation = self.animCache.idleMoveR
+            elif isinstance(self.state, ClimbingState):
+                self.animation = self.animCache.climbR
+            elif isinstance(self.state, JumpState):
+                self.animation = self.animCache.jumpR
+            elif isinstance(self.state, FallingState):
+                self.animation = self.animCache.fallR
             self.facingSide = RIGHT
-        elif self.speedx < 0:
-            self.animation = self.animationLeft
+        elif self.speedx < 0 or (self.speedx == 0 and self.facingSide == LEFT):
+            if isinstance(self.state, IdleState) and self.speedx == 0:
+                self.animation = self.animCache.idleL
+            elif isinstance(self.state, IdleState):
+                self.animation = self.animCache.idleMoveL
+            elif isinstance(self.state, ClimbingState):
+                self.animation = self.animCache.climbL
+            elif isinstance(self.state, JumpState):
+                self.animation = self.animCache.jumpL
+            elif isinstance(self.state, FallingState):
+                self.animation = self.animCache.fallL
             self.facingSide = LEFT
-
-        if isinstance(self.state, IdleState):
-            self.animation = self.animationIdle
-        elif isinstance(self.state, ClimbingState):
-            self.animation = self.animationClim
-        elif isinstance(self.state, JumpState):
-            self.animation = self.animationJump
-        elif isinstance(self.state, FallingState):
-            self.animation = self.animationFall
-
 
         self.updateCollisionMask()
         self.updatePressedKeys()
@@ -262,3 +252,35 @@ class Player(pygame.sprite.Sprite):
             return 1 - backPackWeight / self.halfTagWeight / 2
         else:
             return 1/2*math.exp(1-backPackWeight / self.halfTagWeight)
+
+class SetupAnimations():
+    def __init__(self):
+
+        # Code for animation
+        # imageShapeRight = [pygame.image.load(os.path.join('img', 'playerRight.png')),
+        #                         pygame.image.load(os.path.join('img', 'playerRight1.png')),
+        #                         pygame.image.load(os.path.join('img', 'playerRight2.png'))]
+        # imageShapeLeft = [pygame.transform.flip(img, True, False) for img in imageShapeRight]
+
+        imgIdleR = [rectSurface((32, 32), PURPLE)]
+        imgIdleMoveR = [rectSurface((32, 32), ORANGE)]
+        imgJumpR = [rectSurface((32, 32), BLUE)]
+        imgClimbR = [rectSurface((32, 32), RED)]
+        imgFallR = [rectSurface((32, 32), YELLOW)]
+
+        imgIdleL = [pygame.transform.flip(img, True, False) for img in imgIdleR]
+        imgIdleMoveL = [pygame.transform.flip(img, True, False) for img in imgIdleMoveR]
+        imgJumpL = [pygame.transform.flip(img, True, False) for img in imgJumpR]
+        imgClimbL = [pygame.transform.flip(img, True, False) for img in imgClimbR]
+        imgFallL = [pygame.transform.flip(img, True, False) for img in imgFallR]
+
+        self.idleR = Animation(imgIdleR, 30, True)
+        self.idleL = Animation(imgIdleL, 30, True)
+        self.idleMoveR = Animation(imgIdleMoveR, 30, True)
+        self.idleMoveL = Animation(imgIdleMoveL, 30, True)
+        self.jumpR = Animation(imgJumpR, 30, True)
+        self.jumpL = Animation(imgJumpL, 30, True)
+        self.climbR = Animation(imgClimbR, 30, True)
+        self.climbL = Animation(imgClimbL, 30, True)
+        self.fallR = Animation(imgFallR, 30, True)
+        self.fallL = Animation(imgFallL, 30, True)

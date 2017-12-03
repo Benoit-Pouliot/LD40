@@ -21,7 +21,7 @@ class MenuItem(pygame.sprite.Sprite):
 
         for i in range(backpack.width):
             for j in range(backpack.height):
-                item = backpack.items[i][j]
+                item = backpack.items[j][i]
                 if item != None:
                     self.surface.blit(item.image, self.menuGrid.getBoxPixelCoordinate(i, j))
 
@@ -51,10 +51,10 @@ class MenuItem(pygame.sprite.Sprite):
                         else:
                             self.drawer.imageOnMouse = None
                     else: # We had an item selected
-                        itemDestination = self.backpack.items[(pos[0] - self.x)//(self.menuGrid.slotWidth + self.menuGrid.lineWidth)][(pos[1] - self.y)//(self.menuGrid.slotHeight + self.menuGrid.lineWidth)]
-                        itemSelected = self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]]
-                        self.backpack.items[(pos[0] - self.x)//(self.menuGrid.slotWidth + self.menuGrid.lineWidth)][(pos[1] - self.y)//(self.menuGrid.slotHeight + self.menuGrid.lineWidth)] = self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]]
-                        self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]] = itemDestination
+                        itemDestination = self.backpack.items[(pos[1] - self.y)//(self.menuGrid.slotHeight + self.menuGrid.lineWidth)][(pos[0] - self.x)//(self.menuGrid.slotWidth + self.menuGrid.lineWidth)]
+                        itemSelected = self.backpack.items[self.selectedSlot[1]][self.selectedSlot[0]]
+                        self.backpack.items[(pos[1] - self.y)//(self.menuGrid.slotHeight + self.menuGrid.lineWidth)][(pos[0] - self.x)//(self.menuGrid.slotWidth + self.menuGrid.lineWidth)] = self.backpack.items[self.selectedSlot[1]][self.selectedSlot[0]]
+                        self.backpack.items[self.selectedSlot[1]][self.selectedSlot[0]] = itemDestination
                         self.drawer.imageOnMouse = None
                         self.selectedItem = None
                         self.selectedSlot = None
@@ -69,7 +69,7 @@ class MenuItem(pygame.sprite.Sprite):
 
     def select(self, x, y):
         if x < self.backpack.width and y < self.backpack.height:
-            self.selectedItem = self.backpack.items[x][y]
+            self.selectedItem = self.backpack.items[y][x]
             self.selectedSlot = (x, y)
             if self.selectedItem == None:
                 self.selectedItem = None
@@ -83,13 +83,13 @@ class MenuItem(pygame.sprite.Sprite):
         self.surface.blit(self.menuGrid.image, (0,0))
         for i in range(self.backpack.width):
             for j in range(self.backpack.height):
-                item = self.backpack.items[i][j]
+                item = self.backpack.items[j][i]
                 if item != None:
                     self.surface.blit(item.image, self.menuGrid.getBoxPixelCoordinate(i, j))
 
     def dropItem(self):
-        self.player.dropItem(self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]])
-        self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]] = None
+        self.player.dropItem(self.backpack.items[self.selectedSlot[1]][self.selectedSlot[0]])
+        self.backpack.items[self.selectedSlot[1]][self.selectedSlot[0]] = None
         self.unselectItem()
         self.updateItemImages()
 

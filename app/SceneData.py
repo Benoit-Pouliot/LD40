@@ -3,6 +3,7 @@ from LDEngine.ldLib.scene.SceneDataTMX import SceneDataTMX
 from app.Sprites.Player import Player
 from app.settings import *
 from app.Sprites.enemy.scheduledShooter import ScheduledShooter
+from app.Sprites.item.itemFactory import ItemFactory
 from app.ItemDatabase import ItemDatabase
 from app.Sprites.environment.bridge import Bridge
 from app.Sprites.MenuItem import MenuItem
@@ -24,8 +25,10 @@ class SceneData(SceneDataTMX):
         self.itemDatabase = ItemDatabase()
         self.backpack = Backpack(5, 5)
         self.backpack.addItem(self.itemDatabase.itemList[0])
-        self.backpack.addItem(self.itemDatabase.itemList[0])
+        self.backpack.addItem(self.itemDatabase.itemList[1])
+        self.backpack.addItem(self.itemDatabase.itemList[2])
         self.backpack.items[1][1] = self.itemDatabase.itemList[0]
+
         self.menuItem = MenuItem(self.backpack, self.itemDatabase, self.drawer)
         self.spritesHUD.add(self.menuItem)
         self.notifyGroup.add(self.menuItem)
@@ -52,5 +55,15 @@ class SceneData(SceneDataTMX):
                 bridge = Bridge(obj.x, obj.y, self, "Right")
                 self.allSprites.add(bridge)
                 self.bridgeGroup.add(bridge)
+
+
+        self.itemGroup = pygame.sprite.Group()
+        itemFactory = ItemFactory()
+        for obj in self.tmxData.objects:
+            if obj.type == "item":
+                item = itemFactory.create(obj, self)
+                if item is not None:
+                    self.allSprites.add(item)
+                    self.itemGroup.add(item)
 
         self.camera.add(self.allSprites)

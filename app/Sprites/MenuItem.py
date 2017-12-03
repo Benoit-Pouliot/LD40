@@ -49,6 +49,9 @@ class MenuItem(pygame.sprite.Sprite):
         #         self.surface.blit(self.selectedItem.image, pos)
 
     def select(self, x, y):
-        self.selectedItem = self.backpack.items[x][y]
-        if self.selectedItem == 0:
+        if x < self.backpack.width and y < self.backpack.height:
+            self.selectedItem = self.backpack.items[x][y]
+            if self.selectedItem == 0:
+                self.selectedItem = None
+        else:
             self.selectedItem = None

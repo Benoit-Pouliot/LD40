@@ -36,7 +36,21 @@ class LogicHandler(LogicHandler):
     def handleBridgeCollision(self):
         collisionList = pygame.sprite.spritecollide(self.sceneData.player, self.sceneData.bridgeGroup,
                                                     False)
+
+        playerOnBridge = False
+
         for bridge in collisionList:
             if bridge.animation.currentFrame == 0:
-                if self.sceneData.player.rect.centery < bridge.rect.centery:
+                if self.sceneData.player.rect.centery < bridge.rect.top:
                     self.sceneData.player.onCollision(SOLID, DOWN)
+                    playerOnBridge = True
+                else:
+                    playerOnBridge = False
+            else:
+                playerOnBridge = False
+
+        if len(collisionList) == 0:
+            playerOnBridge = False
+
+        if self.sceneData.player.isOnBridge != playerOnBridge:
+            self.sceneData.player.isOnBridge = playerOnBridge

@@ -10,6 +10,7 @@ from LDEngine.ldLib.collision.CollisionRules.CollisionWithSpring import Collisio
 from LDEngine.ldLib.collision.CollisionRules.CollisionWithSpike import CollisionWithSpike
 from LDEngine.ldLib.collision.CollisionRules.CollisionWithLadder import CollisionWithLadder
 from LDEngine.ldLib.collision.CollisionRules.CollisionWithNothing import CollisionWithNothing
+from app.Sprites.environment.CollisionWithBridge import CollisionWithBridge
 from LDEngine.ldLib.Sprites.Player.IdleState import IdleState
 from LDEngine.ldLib.Sprites.Player.JumpState import JumpState
 from LDEngine.ldLib.Sprites.Player.FallingState import FallingState
@@ -70,12 +71,14 @@ class Player(pygame.sprite.Sprite):
 
         self.mapData = sceneData
         self.mapData.player = self
+        self.isOnBridge = False
 
         self.isAlive = True
 
         self.collisionMask = CollisionMask(self.rect.x, self.rect.y, self.rect.width, self.rect.height)
         self.collisionRules = []
         self.collisionRules.append(CollisionWithNothing())  # Gotta be first in the list to work properly
+        self.collisionRules.append(CollisionWithBridge())
         self.collisionRules.append(CollisionWithSolid())
         self.collisionRules.append(CollisionWithSpring())
         self.collisionRules.append(CollisionWithSpike())

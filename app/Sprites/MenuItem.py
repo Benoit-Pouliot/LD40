@@ -4,9 +4,10 @@ from app.Sprites.MenuGrid import MenuGrid
 from LDEngine.ldLib.collision.collisionMask import CollisionMask
 
 class MenuItem(pygame.sprite.Sprite):
-    def __init__(self, backpack, itemDatabase, drawer):
+    def __init__(self, backpack, itemDatabase, drawer, player):
         super().__init__()
 
+        self.player = player
         self.drawer = drawer
         self.backpack = backpack
         self.itemDatabase = itemDatabase
@@ -57,6 +58,8 @@ class MenuItem(pygame.sprite.Sprite):
                         self.selectedItem = None
                         self.selectedSlot = None
                         self.updateItemImages()
+                elif self.selectedItem != None:
+                    self.dropItem()
         # if event.type == pygame.MOUSEMOTION:
         #     if self.selectedItem != None:
         #         self.drawer
@@ -82,3 +85,11 @@ class MenuItem(pygame.sprite.Sprite):
                 item = self.backpack.items[i][j]
                 if item != None:
                     self.surface.blit(item.image, self.menuGrid.getBoxPixelCoordinate(i, j))
+
+    def dropItem(self):
+        self.player.dropItem(self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]])
+        self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]] = None
+        self.selectedItem = None
+        self.selectedSlot = None
+        self.drawer.imageOnMouse = None
+        self.updateItemImages()

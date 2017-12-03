@@ -28,7 +28,10 @@ class SceneData(SceneDataTMX):
         self.backpack.addItem(self.itemDatabase.itemList[2])
         self.backpack.items[1][1] = self.itemDatabase.itemList[0]
 
-        self.menuItem = MenuItem(self.backpack, self.itemDatabase, self.drawer)
+
+        self.player = Player(self.spawmPointPlayerx, self.spawmPointPlayery, self)
+
+        self.menuItem = MenuItem(self.backpack, self.itemDatabase, self.drawer, self.player)
         self.spritesHUD.add(self.menuItem)
         self.notifyGroup.add(self.menuItem)
 
@@ -67,4 +70,4 @@ class SceneData(SceneDataTMX):
 
         self.camera.add(self.allSprites)
 
-        self.player = Player(self.spawmPointPlayerx, self.spawmPointPlayery, self)
+

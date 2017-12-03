@@ -292,6 +292,9 @@ class Player(pygame.sprite.Sprite):
         self.backPackWeight += self.mapData.itemDatabase.itemList[itemID].weight
         self.mapData.menuItem.updateItemImages()
 
+    def dropItem(self, item):
+        self.backPackWeight -= item.weight
+
 class SetupAnimations():
     def __init__(self):
 

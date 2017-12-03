@@ -15,7 +15,6 @@ class SceneData(SceneDataTMX):
     def __init__(self, drawer, nameMap="GameMap"):
         super().__init__(nameMap, "StartPointWorld", (SCREEN_WIDTH,SCREEN_HEIGHT))
 
-        self.player = Player(self.spawmPointPlayerx, self.spawmPointPlayery, self)
         self.drawer = drawer
 
         self.traps = []
@@ -67,3 +66,5 @@ class SceneData(SceneDataTMX):
                     self.itemGroup.add(item)
 
         self.camera.add(self.allSprites)
+
+        self.player = Player(self.spawmPointPlayerx, self.spawmPointPlayery, self)

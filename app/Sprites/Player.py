@@ -73,6 +73,7 @@ class Player(pygame.sprite.Sprite):
         self.mapData = sceneData
         self.mapData.player = self
         self.isOnBridge = False
+        self.backPackWeight = self.mapData.backpack.getTotalWeight()
 
         self.isAlive = True
 
@@ -281,19 +282,15 @@ class Player(pygame.sprite.Sprite):
     # Decelerate speed
     def decSpeed(self):
 
-        backPackWeight = 0
-        if TAG_BP == 1:
-            backPackWeight = 50
-        if TAG_AGB == 1:
-            backPackWeight = 25
-
-        if backPackWeight < self.halfTagWeight:
-            return 1 - backPackWeight / self.halfTagWeight / 2
+        if self.backPackWeight < self.halfTagWeight:
+            return 1 - self.backPackWeight / self.halfTagWeight / 2
         else:
-            return 1/2*math.exp(1-backPackWeight / self.halfTagWeight)
+            return 1/2*math.exp(1-self.backPackWeight / self.halfTagWeight)
 
     def pickUpItem(self, itemID):
-        self.mapData.backpack.addItem(itemID)
+        self.mapData.backpack.addItem(self.mapData.itemDatabase.itemList[itemID])
+        self.backPackWeight += self.mapData.itemDatabase.itemList[itemID].weight
+        self.mapData.menuItem.updateItemImages()
 
 class SetupAnimations():
     def __init__(self):

@@ -17,7 +17,7 @@ class GenericItem(GenericSprite):
         self.dictProperties = {"itemId": self.setId}
 
     def setId(self, id):
-        self.id = id
+        self.id = int(id)
 
         self.setImg(self.id)
 

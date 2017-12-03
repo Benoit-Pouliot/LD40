@@ -20,4 +20,15 @@ class Backpack():
                     return (x,y)
                 y += 1
             x += 1
+            y = 0
         return None
+
+    def getTotalWeight(self):
+        totalWeight = 0
+
+        for list in self.items:
+            for item in list:
+                if item != None:
+                    totalWeight += item.weight
+
+        return totalWeight

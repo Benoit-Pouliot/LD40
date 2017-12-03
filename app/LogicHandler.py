@@ -19,6 +19,7 @@ class LogicHandler(LogicHandler):
         self.handleCollision()
         self.handleBulletCollision()
         self.handleBridgeCollision()
+        self.handleItemCollision()
 
     def handleCollision(self):
         for sprite in self.gameData.sceneData.bulletGroup:

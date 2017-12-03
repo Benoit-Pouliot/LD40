@@ -143,14 +143,22 @@ class Player(pygame.sprite.Sprite):
             rule.onMoveY(self)
 
     def capSpeed(self):
+
         if self.speedx > 0 and self.speedx > self.maxSpeedx * self.decSpeed():
             self.speedx = self.maxSpeedx * self.decSpeed()
         if self.speedx < 0 and self.speedx < -self.maxSpeedx * self.decSpeed():
             self.speedx = -self.maxSpeedx * self.decSpeed()
-        if self.speedy > 0 and self.speedy > self.maxSpeedyDown:
-            self.speedy = self.maxSpeedyDown
-        if self.speedy < 0 and self.speedy < -self.maxSpeedyUp * self.decSpeed():
-            self.speedy = -self.maxSpeedyUp * self.decSpeed()
+
+        capSpeedDown = self.maxSpeedyDown
+        capSpeedUp = self.maxSpeedyUp
+        if isinstance(self.state, ClimbingState):
+            capSpeedDown = self.maxSpeedx * self.decSpeed()
+            capSpeedUp = self.maxSpeedx
+
+        if self.speedy > 0 and self.speedy > capSpeedDown:
+            self.speedy = capSpeedDown
+        if self.speedy < 0 and self.speedy < -capSpeedUp * self.decSpeed():
+            self.speedy = -capSpeedUp * self.decSpeed()
 
     def updateSpeedRight(self):
         self.speedx += self.accx
@@ -229,8 +237,8 @@ class Player(pygame.sprite.Sprite):
             self.updateSpeedLeft()
         if self.upPressed:
             self.updateSpeedUp()
-        # if self.downPressed:
-        #     self.updateSpeedDown()
+        if self.downPressed:
+            self.updateSpeedDown()
         if self.leftMousePressed:
             pass
         if self.rightMousePressed:
@@ -250,7 +258,7 @@ class Player(pygame.sprite.Sprite):
     # Decelerate speed
     def decSpeed(self):
 
-        backPackWeight = 0
+        backPackWeight = 100
         if backPackWeight < self.halfTagWeight:
             return 1 - backPackWeight / self.halfTagWeight / 2
         else:

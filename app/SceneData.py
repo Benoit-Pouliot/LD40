@@ -24,7 +24,7 @@ class SceneData(SceneDataTMX):
         self.bridgeGroup = pygame.sprite.Group()
 
         self.itemDatabase = ItemDatabase()
-        self.backpack = Backpack(5, 5)
+        self.backpack = Backpack(3, 3)
 
         self.backpack.items[1][1] = self.itemDatabase.itemList[0]
 

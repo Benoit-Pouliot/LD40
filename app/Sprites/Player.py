@@ -63,10 +63,10 @@ class Player(pygame.sprite.Sprite):
         self.speedx = 0
         self.speedy = 0
         self.maxSpeedx = 7
-        self.maxSpeedyUp = 35
-        self.maxSpeedyDown = 10
-        self.jumpSpeed = 25
-        self.springJumpSpeed = 35
+        self.maxSpeedyUp = 25
+        self.maxSpeedyDown = 20
+        self.jumpSpeed = 20
+        self.springJumpSpeed = 30
         self.accx = 2
         self.accy = 2
 
@@ -219,8 +219,7 @@ class Player(pygame.sprite.Sprite):
         self.speedy -= self.accy
 
     def updateSpeedDown(self):
-        if isinstance(self.state, ClimbingState):
-            self.speedy += self.accy
+        self.speedy += self.accy
 
     def updateCollisionMask(self):
         self.collisionMask.rect.x = self.rect.x

@@ -12,6 +12,7 @@ class LogicHandler(LogicHandler):
     def __init__(self, gameData):
         super().__init__(gameData)
         self.physics = ScenePhysics(gameData.sceneData)
+        self.gameOver = False
 
     def handle(self):
         super().handle()
@@ -69,6 +70,8 @@ class LogicHandler(LogicHandler):
             if self.isPlayerIsInZone(player, obj) == True:
                 if obj.name == "chest":
                     self.emptyBackpackInChest()
+                elif obj.name == "OutZone":
+                    self.endGame()
 
     def isPlayerIsInZone(self, player, zone):
         if player.rect.centerx  >= zone.x and \
@@ -84,3 +87,6 @@ class LogicHandler(LogicHandler):
         self.sceneData.backpack.empty()
         self.sceneData.player.backPackWeight = 0
         self.sceneData.menuItem.updateItemImages()
+
+    def endGame(self):
+        self.gameOver = True

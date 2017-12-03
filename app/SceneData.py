@@ -74,4 +74,5 @@ class SceneData(SceneDataTMX):
 
         self.camera.add(self.allSprites)
 
-
+    def beforeLeavingScene(self, screen):
+        pass

@@ -44,6 +44,7 @@ class InstructionSceneData(SceneData):
         self.textGoal.textList.append('Move with the ARROW KEYS.')
         self.textGoal.textList.append('Jump with SPACE.')
         self.textGoal.textList.append('Your inventory is controlled with the MOUSE.')
+        self.textGoal.textList.append('Toggle it with SHIFT.')
         self.textGoal.textList.append('(Your performance will be timed.)')
         # self.textGoal.textList.append('')
         # self.textGoal.textList.append('Press m to mute the game.')

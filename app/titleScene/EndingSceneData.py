@@ -20,7 +20,7 @@ TIME_GOAL = 150
 
 
 class EndingSceneData(SceneData):
-    def __init__(self):
+    def __init__(self, score=0, time=15000):
         super().__init__()
 
         # background
@@ -28,10 +28,9 @@ class EndingSceneData(SceneData):
         self.background.rect = pygame.Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.background.image = pygame.image.load(os.path.join('Sprite', 'performancereport.png'))
         self.background.rect = self.background.image.get_rect()
-        # TODO WE NEED PLAYER ACCESS
 
-        self.treasure = 5000
-        self.time = 0
+        self.treasure = score
+        self.time = time
         self.internalScore = self.treasure * math.pow(0.9, (self.time/60))
 
         self.spritesBackGround.add(self.background)

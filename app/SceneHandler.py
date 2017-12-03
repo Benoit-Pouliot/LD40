@@ -12,7 +12,7 @@ from app.LogicHandler import LogicHandler
 from app.EventHandler import EventHandler
 from app.SceneData import SceneData
 
-from LDEngine.app.scene.platformScreen.platformScreen import PlatformScreen
+import time
 from LDEngine.app.gameData import GameData
 
 
@@ -44,8 +44,13 @@ class SceneHandler:
                 self.logicHandler = TitleSceneLogicHandler(self.gameData)
                 self.runningScene = TitleScreen(self.screen, self.gameData, self.logicHandler)
             elif self.runningScene.nextScene == CREDIT_SCREEN:
-                #self.gameData.sceneData = CreditSceneData()
-                self.gameData.sceneData = EndingSceneData()
+                self.gameData.sceneData = CreditSceneData()
+                self.logicHandler = TitleSceneLogicHandler(self.gameData)
+                self.runningScene = TitleScreen(self.screen, self.gameData, self.logicHandler)
+            elif self.runningScene.nextScene == WIN_SCREEN:
+                timeToBeat = round(time.time() - self.gameData.sceneData.player.time, 2)
+                score = self.gameData.sceneData.score
+                self.gameData.sceneData = EndingSceneData(score, timeToBeat)
                 self.logicHandler = TitleSceneLogicHandler(self.gameData)
                 self.runningScene = TitleScreen(self.screen, self.gameData, self.logicHandler)
             elif self.runningScene.nextScene == PLATFORM_SCREEN:

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="25" height="19" tilewidth="32" tileheight="32" nextobjectid="12">
+<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="25" height="19" tilewidth="32" tileheight="32" nextobjectid="13">
  <tileset firstgid="1" name="collision_set" tilewidth="32" tileheight="32" tilecount="50" columns="5">
   <image source="img/collision_set.png" width="160" height="320"/>
  </tileset>
@@ -195,6 +195,11 @@
   <object id="8" name="InZone" type="StartPointWorld" x="256" y="415.333" width="34" height="30">
    <properties>
     <property name="StartPoint" value="StartPointWorld"/>
+   </properties>
+  </object>
+  <object id="12" name="OutZone" type="StartPointWorld" x="656" y="513" width="34" height="30">
+   <properties>
+    <property name="StartPoint" value="EndPointWorld"/>
    </properties>
   </object>
  </objectgroup>

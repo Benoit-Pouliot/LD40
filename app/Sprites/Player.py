@@ -78,7 +78,7 @@ class Player(pygame.sprite.Sprite):
         self.backPackWeight = self.mapData.backpack.getTotalWeight()
 
         self.isAlive = True
-        self.timeStart = time.time()
+        self.time = time.time()
 
         self.collisionMask = CollisionMask(self.rect.x, self.rect.y, self.rect.width, self.rect.height)
         self.collisionRules = []

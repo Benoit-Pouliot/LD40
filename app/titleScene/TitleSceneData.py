@@ -24,6 +24,7 @@ class TitleSceneData(SceneData):
         self.background.rect = self.background.image.get_rect()
 
         self.spritesBackGround.add(self.background)
+        self.score = 0
 
         self.createStartMenu()
 

@@ -49,10 +49,10 @@ class MenuItem(pygame.sprite.Sprite):
                         else:
                             self.drawer.imageOnMouse = None
                     else: # We had an item selected
-                        item = self.backpack.items[(pos[0] - self.x)//(self.menuGrid.slotWidth + self.menuGrid.lineWidth)][(pos[1] - self.y)//(self.menuGrid.slotHeight + self.menuGrid.lineWidth)]
-                        itemDestination = self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]]
+                        itemDestination = self.backpack.items[(pos[0] - self.x)//(self.menuGrid.slotWidth + self.menuGrid.lineWidth)][(pos[1] - self.y)//(self.menuGrid.slotHeight + self.menuGrid.lineWidth)]
+                        itemSelected = self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]]
                         self.backpack.items[(pos[0] - self.x)//(self.menuGrid.slotWidth + self.menuGrid.lineWidth)][(pos[1] - self.y)//(self.menuGrid.slotHeight + self.menuGrid.lineWidth)] = self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]]
-                        self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]] = None
+                        self.backpack.items[self.selectedSlot[0]][self.selectedSlot[1]] = itemDestination
                         self.drawer.imageOnMouse = None
                         self.selectedItem = None
                         self.selectedSlot = None

@@ -258,7 +258,10 @@ class Player(pygame.sprite.Sprite):
     # Decelerate speed
     def decSpeed(self):
 
-        backPackWeight = 100
+        backPackWeight = 0
+        if TAG_BP == 1:
+            backPackWeight = 50
+
         if backPackWeight < self.halfTagWeight:
             return 1 - backPackWeight / self.halfTagWeight / 2
         else:

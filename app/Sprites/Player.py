@@ -298,10 +298,10 @@ class Player(pygame.sprite.Sprite):
     def dropItem(self, item):
         if self.facingSide == RIGHT:
             itemSprite = GenericItem(self.x, self.y - 40)
-            itemSprite.speedx = 15
+            itemSprite.speedx = 15 + self.speedx
         if self.facingSide == LEFT:
             itemSprite = GenericItem(self.x, self.y - 40)
-            itemSprite.speedx = -15
+            itemSprite.speedx = -15 + self.speedx
         itemSprite.setId(item.id)
         itemSprite.isGravityApplied = True
         itemSprite.isFrictionApplied = True

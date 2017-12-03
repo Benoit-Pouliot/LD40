@@ -10,6 +10,7 @@ from LDEngine.ldLib.collision.CollisionRules.CollisionWithSpring import Collisio
 from LDEngine.ldLib.collision.CollisionRules.CollisionWithSpike import CollisionWithSpike
 from LDEngine.ldLib.collision.CollisionRules.CollisionWithLadder import CollisionWithLadder
 from LDEngine.ldLib.collision.CollisionRules.CollisionWithNothing import CollisionWithNothing
+from LDEngine.ldLib.collision.collisionTile import collisionCenterWithTile
 from app.Sprites.environment.CollisionWithBridge import CollisionWithBridge
 from LDEngine.ldLib.Sprites.Player.IdleState import IdleState
 from LDEngine.ldLib.Sprites.Player.JumpState import JumpState
@@ -78,11 +79,11 @@ class Player(pygame.sprite.Sprite):
         self.collisionMask = CollisionMask(self.rect.x, self.rect.y, self.rect.width, self.rect.height)
         self.collisionRules = []
         self.collisionRules.append(CollisionWithNothing())  # Gotta be first in the list to work properly
+        self.collisionRules.append(CollisionWithLadder())  # Need to be second
         self.collisionRules.append(CollisionWithBridge())
         self.collisionRules.append(CollisionWithSolid())
         self.collisionRules.append(CollisionWithSpring())
         self.collisionRules.append(CollisionWithSpike())
-        self.collisionRules.append(CollisionWithLadder())
 
         self._state = IdleState()
         self.nextState = None
@@ -101,26 +102,47 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
+        # If on a ladder, we fix him
+        if isinstance(self.state, ClimbingState):
+
+            tileWidth = self.mapData.tmxData.tilewidth
+            decal = (int)(tileWidth/2) - (int)((self.collisionMask.rect.right - self.collisionMask.rect.left)/2)
+            self.rect.x = (int)((self.collisionMask.rect.left + self.collisionMask.rect.right)/2/tileWidth)*tileWidth + decal
+
+            # If not moving in x, we hard-fix him to help to pass between floor
+            if self.speedx == 0:
+                self.x = self.rect.x
+
+
+
         # Update animation instead
         if self.speedx > 0 or (self.speedx == 0 and self.facingSide == RIGHT):
-            if isinstance(self.state, IdleState) and self.speedx == 0:
-                self.animation = self.animCache.idleR
-            elif isinstance(self.state, IdleState):
-                self.animation = self.animCache.idleMoveR
+            if isinstance(self.state, IdleState):
+                if self.speedx == 0:
+                    self.animation = self.animCache.idleR
+                else:
+                    self.animation = self.animCache.idleMoveR
             elif isinstance(self.state, ClimbingState):
-                self.animation = self.animCache.climbR
+                if self.speedy == 0:
+                    self.animation = self.animCache.climbR
+                else:
+                    self.animation = self.animCache.climbMoveR
             elif isinstance(self.state, JumpState):
                 self.animation = self.animCache.jumpR
             elif isinstance(self.state, FallingState):
                 self.animation = self.animCache.fallR
             self.facingSide = RIGHT
         elif self.speedx < 0 or (self.speedx == 0 and self.facingSide == LEFT):
-            if isinstance(self.state, IdleState) and self.speedx == 0:
-                self.animation = self.animCache.idleL
-            elif isinstance(self.state, IdleState):
-                self.animation = self.animCache.idleMoveL
+            if isinstance(self.state, IdleState):
+                if self.speedx == 0:
+                    self.animation = self.animCache.idleL
+                else:
+                    self.animation = self.animCache.idleMoveL
             elif isinstance(self.state, ClimbingState):
-                self.animation = self.animCache.climbL
+                if self.speedy == 0:
+                    self.animation = self.animCache.climbL
+                else:
+                    self.animation = self.animCache.climbMoveL
             elif isinstance(self.state, JumpState):
                 self.animation = self.animCache.jumpL
             elif isinstance(self.state, FallingState):
@@ -170,7 +192,8 @@ class Player(pygame.sprite.Sprite):
         self.speedy -= self.accy
 
     def updateSpeedDown(self):
-        self.speedy += self.accy
+        if isinstance(self.state, ClimbingState):
+            self.speedy += self.accy
 
     def updateCollisionMask(self):
         self.collisionMask.rect.x = self.rect.x
@@ -276,16 +299,20 @@ class SetupAnimations():
         #                         pygame.image.load(os.path.join('img', 'playerRight2.png'))]
         # imageShapeLeft = [pygame.transform.flip(img, True, False) for img in imageShapeRight]
 
-        imgIdleR = [rectSurface((32, 32), PURPLE)]
-        imgIdleMoveR = [rectSurface((32, 32), ORANGE)]
-        imgJumpR = [rectSurface((32, 32), BLUE)]
-        imgClimbR = [rectSurface((32, 32), RED)]
-        imgFallR = [rectSurface((32, 32), YELLOW)]
+        size = 28
+
+        imgIdleR = [rectSurface((size, size), PURPLE)]
+        imgIdleMoveR = [rectSurface((size, size), ORANGE)]
+        imgJumpR = [rectSurface((size, size), BLUE)]
+        imgClimbR = [rectSurface((size, size), RED)]
+        imgClimbMoveR = [rectSurface((size, size), GREEN)]
+        imgFallR = [rectSurface((size, size), YELLOW)]
 
         imgIdleL = [pygame.transform.flip(img, True, False) for img in imgIdleR]
         imgIdleMoveL = [pygame.transform.flip(img, True, False) for img in imgIdleMoveR]
         imgJumpL = [pygame.transform.flip(img, True, False) for img in imgJumpR]
         imgClimbL = [pygame.transform.flip(img, True, False) for img in imgClimbR]
+        imgClimbMoveL = [pygame.transform.flip(img, True, False) for img in imgClimbMoveR]
         imgFallL = [pygame.transform.flip(img, True, False) for img in imgFallR]
 
         self.idleR = Animation(imgIdleR, 30, True)
@@ -296,5 +323,7 @@ class SetupAnimations():
         self.jumpL = Animation(imgJumpL, 30, True)
         self.climbR = Animation(imgClimbR, 30, True)
         self.climbL = Animation(imgClimbL, 30, True)
+        self.climbMoveR = Animation(imgClimbMoveR, 30, True)
+        self.climbMoveL = Animation(imgClimbMoveL, 30, True)
         self.fallR = Animation(imgFallR, 30, True)
         self.fallL = Animation(imgFallL, 30, True)

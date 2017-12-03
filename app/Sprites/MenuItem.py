@@ -100,4 +100,3 @@ class MenuItem(pygame.sprite.Sprite):
             self.player.backPackWeight -= self.backpack.items[coordinates[0]][coordinates[1]].weight
             self.backpack.removeItem(coordinates[0],coordinates[1])
             self.updateItemImages()
-

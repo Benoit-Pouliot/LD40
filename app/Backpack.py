@@ -49,9 +49,17 @@ class Backpack():
             for index in range(len(list)):
                 list[index] = None
 
-    def destroyFirstItem(self):
+    def returnFirstItemCoordinates(self):
+        x = 0
+        y = 0
+
         for list in self.items:
-            for index in range(len(list)):
-                if list[index] != None:
-                    list[index] = None
-                    return
+            for item in list:
+                if item != None:
+                    return (x,y)
+                y += 1
+            x += 1
+            y = 0
+
+    def removeItem(self, x, y):
+        self.items[x][y] = None

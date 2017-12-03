@@ -294,8 +294,7 @@ class Player(pygame.sprite.Sprite):
     def hurt(self):
         if self.invincibleCooldown.isZero:
             #self.hurtSound.play()
-            self.mapData.backpack.destroyFirstItem()
-            self.mapData.menuItem.updateItemImages()
+            self.mapData.menuItem.destroyFirstItem()
             self.invincibleOnHit()
 
     def invincibleOnHit(self):

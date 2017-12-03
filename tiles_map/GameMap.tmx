@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="99">
- <tileset firstgid="1" name="collision_set" tilewidth="32" tileheight="32" tilecount="50">
+<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="99">
+ <tileset firstgid="1" name="collision_set" tilewidth="32" tileheight="32" tilecount="50" columns="5">
   <image source="img/collision_set.png" width="160" height="320"/>
  </tileset>
- <tileset firstgid="51" name="Set_01" tilewidth="32" tileheight="32" tilecount="25">
+ <tileset firstgid="51" name="Set_01" tilewidth="32" tileheight="32" tilecount="25" columns="5">
   <image source="img/Set_01.png" width="160" height="160"/>
  </tileset>
  <tileset firstgid="76" source="cavern_tileset.tsx"/>
@@ -848,7 +848,7 @@
   </object>
   <object id="6" name="Bridgeright" type="trap" x="1344.33" y="3105" width="32" height="32"/>
   <object id="7" name="Bridgeleft" type="trap" x="1312.33" y="3105" width="32" height="32"/>
-  <object id="12" name="Trap" type="trap" x="63.6667" y="3090" width="32" height="32">
+  <object id="12" name="Trap" type="trap" x="64" y="3104" width="32" height="32">
    <properties>
     <property name="direction" value="Right"/>
    </properties>
@@ -1148,12 +1148,12 @@
     <property name="itemId" value="1"/>
    </properties>
   </object>
-  <object id="86" name="item" type="item" x="63.9375" y="3135.4" width="32.125" height="31.2083">
+  <object id="86" name="item" type="item" x="64" y="3136" width="32" height="32">
    <properties>
     <property name="itemId" value="1"/>
    </properties>
   </object>
-  <object id="87" name="item" type="item" x="96.9375" y="3134.4" width="32.125" height="31.2083">
+  <object id="87" name="item" type="item" x="96" y="3136" width="32" height="32">
    <properties>
     <property name="itemId" value="1"/>
    </properties>

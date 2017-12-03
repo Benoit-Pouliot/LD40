@@ -18,6 +18,7 @@ class LogicHandler(LogicHandler):
         self.physics.update()
         self.handleCollision()
         self.handleBulletCollision()
+        self.handleBridgeCollision()
 
 
     def handleCollision(self):
@@ -31,3 +32,11 @@ class LogicHandler(LogicHandler):
             if isinstance(bullet, Bullet):
                 bullet.detonate()
             self.sceneData.player.hurt()
+
+    def handleBridgeCollision(self):
+        collisionList = pygame.sprite.spritecollide(self.sceneData.player, self.sceneData.bridgeGroup,
+                                                    False)
+        for bridge in collisionList:
+            if bridge.animation.currentFrame == 0:
+                if self.sceneData.player.rect.centery < bridge.rect.centery:
+                    self.sceneData.player.onCollision(SOLID, DOWN)

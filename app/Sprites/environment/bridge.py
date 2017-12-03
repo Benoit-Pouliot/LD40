@@ -9,18 +9,23 @@ from LDEngine.app.settings import *
 import random
 
 
-class ScheduledShooter(Enemy):
+class Bridge(Enemy):
     def __init__(self, x, y, theMap=None, direction="Left"):
-        super().__init__(x, y, os.path.join('Sprite', 'trap.png'))
+        super().__init__(x, y, os.path.join('Sprite', 'bridgebottomleft.png'))
 
-        self.name = "scheduledShooter"
+        self.name = "Bridge"
 
-        self.imageEnemy = pygame.image.load(os.path.join('Sprite', 'trap.png'))
+        if direction== "Left":
+            self.imageRaised = pygame.image.load(os.path.join('Sprite', 'bridgebottomleft.png'))
+            self.imageDropped = pygame.image.load(os.path.join('Sprite', 'bridgeloweredbottomleft.png'))
+        else:
+            self.imageRaised = pygame.image.load(os.path.join('Sprite', 'bridgebottomright.png'))
+            self.imageDropped = pygame.image.load(os.path.join('Sprite', 'bridgeloweredbottomright.png'))
 
-        self.frames = [self.imageEnemy]
-        self.animation = Animation(self,self.frames,20)
+        self.frames = [self.imageRaised, self.imageDropped]
+        self.animation = Animation(self,self.frames,100)
 
-        self.rect = self.imageEnemy.get_rect()
+        self.rect = self.imageRaised.get_rect()
         self.rect.x = x
         self.rect.y = y
 
@@ -31,7 +36,7 @@ class ScheduledShooter(Enemy):
 
         self.setDirection(direction)
 
-        self.isGravityApplied = True
+        self.isGravityApplied = False
         self.isCollisionApplied = True
 
         self.imageIterShoot = random.randint(10,70)
@@ -52,24 +57,6 @@ class ScheduledShooter(Enemy):
 
         self.animation.update(self)
         self.updateCollisionMask()
-
-        self.imageIterShoot += 1
-        if self.imageIterShoot > self.imageWaitNextShoot:
-
-            if self.direction == "Right":
-                bullet = FireBullet(self.rect.x + self.rect.width + 1, self.rect.centery, RIGHT, False)
-            elif self.direction == "Left":
-                bullet = FireBullet(self.rect.x - 10, self.rect.centery, LEFT, False)
-            elif self.direction == "Up":
-                bullet = FireBullet(self.rect.x - 10, self.rect.centery, UP, False)
-            else:
-                bullet = FireBullet(self.rect.x - 10, self.rect.centery, DOWN, False)
-
-            self.theMap.camera.add(bullet)
-            self.theMap.allSprites.add(bullet)
-            self.theMap.bulletGroup.add(bullet)
-
-            self.imageIterShoot = 0
 
 
     def updateCollisionMask(self):

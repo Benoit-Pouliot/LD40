@@ -1,5 +1,6 @@
 import os
 import pygame
+import math
 
 from LDEngine.ldLib.tools.ImageBox import rectSurface
 from LDEngine.ldLib.animation.Animation import Animation
@@ -10,6 +11,9 @@ from LDEngine.ldLib.collision.CollisionRules.CollisionWithSpike import Collision
 from LDEngine.ldLib.collision.CollisionRules.CollisionWithLadder import CollisionWithLadder
 from LDEngine.ldLib.collision.CollisionRules.CollisionWithNothing import CollisionWithNothing
 from LDEngine.ldLib.Sprites.Player.IdleState import IdleState
+from LDEngine.ldLib.Sprites.Player.JumpState import JumpState
+from LDEngine.ldLib.Sprites.Player.FallingState import FallingState
+from LDEngine.ldLib.Sprites.Player.ClimbingState import ClimbingState
 
 from app.settings import *
 
@@ -25,10 +29,20 @@ class Player(pygame.sprite.Sprite):
                                 pygame.image.load(os.path.join('img', 'playerRight2.png'))]
         self.imageShapeLeft = [pygame.transform.flip(img, True, False) for img in self.imageShapeRight]
 
+        self.imgIdle = [rectSurface((32, 32), PURPLE)]
+        self.imgJump = [rectSurface((32, 32), BLUE)]
+        self.imgClim = [rectSurface((32, 32), RED)]
+        self.imgFall = [rectSurface((32, 32), YELLOW)]
+
+        self.animationIdle = Animation(self.imgIdle, 30, True)
+        self.animationJump = Animation(self.imgJump, 30, True)
+        self.animationClim = Animation(self.imgClim, 30, True)
+        self.animationFall = Animation(self.imgFall, 30, True)
+
         self.image = self.imageShapeRight[0]
 
         self.animationLeft = Animation(self.imageShapeLeft, 30, True)
-        self.animationRight = Animation(self.imageShapeRight, 30)
+        self.animationRight = Animation(self.imageShapeRight, 30, True)
         self.animation = self.animationRight
 
         #End of code for animation
@@ -49,10 +63,13 @@ class Player(pygame.sprite.Sprite):
         self.maxSpeedx = 5
         self.maxSpeedyUp = 25
         self.maxSpeedyDown = 10
-        self.accx = 2
-        self.accy = 2
         self.jumpSpeed = 15
         self.springJumpSpeed = 25
+        self.accx = 2
+        self.accy = 2
+
+        # At this value, the player is slowed to 1/2 of his speed.
+        self.halfTagWeight = 100
 
         self.isFrictionApplied = True
         self.isGravityApplied = True
@@ -83,7 +100,7 @@ class Player(pygame.sprite.Sprite):
         self.collisionRules.append(CollisionWithLadder())
 
         self._state = IdleState()
-        # self.nextState = None
+        self.nextState = None
 
     def update(self):
         # Update image with animation
@@ -103,9 +120,19 @@ class Player(pygame.sprite.Sprite):
         if self.speedx > 0:
             self.animation = self.animationRight
             self.facingSide = RIGHT
-        if self.speedx < 0:
+        elif self.speedx < 0:
             self.animation = self.animationLeft
             self.facingSide = LEFT
+
+        if isinstance(self.state, IdleState):
+            self.animation = self.animationIdle
+        elif isinstance(self.state, ClimbingState):
+            self.animation = self.animationClim
+        elif isinstance(self.state, JumpState):
+            self.animation = self.animationJump
+        elif isinstance(self.state, FallingState):
+            self.animation = self.animationFall
+
 
         self.updateCollisionMask()
         self.updatePressedKeys()
@@ -123,14 +150,14 @@ class Player(pygame.sprite.Sprite):
             rule.onMoveY(self)
 
     def capSpeed(self):
-        if self.speedx > 0 and self.speedx > self.maxSpeedx:
-            self.speedx = self.maxSpeedx
-        if self.speedx < 0 and self.speedx < -self.maxSpeedx:
-            self.speedx = -self.maxSpeedx
+        if self.speedx > 0 and self.speedx > self.maxSpeedx * self.decSpeed():
+            self.speedx = self.maxSpeedx * self.decSpeed()
+        if self.speedx < 0 and self.speedx < -self.maxSpeedx * self.decSpeed():
+            self.speedx = -self.maxSpeedx * self.decSpeed()
         if self.speedy > 0 and self.speedy > self.maxSpeedyDown:
             self.speedy = self.maxSpeedyDown
-        if self.speedy < 0 and self.speedy < -self.maxSpeedyUp:
-            self.speedy = -self.maxSpeedyUp
+        if self.speedy < 0 and self.speedy < -self.maxSpeedyUp * self.decSpeed():
+            self.speedy = -self.maxSpeedyUp * self.decSpeed()
 
     def updateSpeedRight(self):
         self.speedx += self.accx
@@ -187,11 +214,9 @@ class Player(pygame.sprite.Sprite):
     def notify(self, event):
         self.nextState = self.state.handleInput(self, event)
 
-        # if self.nextState != None:
-        #     self.state.exit(self)
-        #     self.state = self.nextState
-        #     self.state.enter(self)
-        #     self.nextState = None
+        if self.nextState != None:
+            self.state = self.nextState
+            self.nextState = None
 
     @property
     def state(self):
@@ -211,8 +236,8 @@ class Player(pygame.sprite.Sprite):
             self.updateSpeedLeft()
         if self.upPressed:
             self.updateSpeedUp()
-        if self.downPressed:
-            self.updateSpeedDown()
+        # if self.downPressed:
+        #     self.updateSpeedDown()
         if self.leftMousePressed:
             pass
         if self.rightMousePressed:
@@ -223,11 +248,17 @@ class Player(pygame.sprite.Sprite):
             pass
 
     def jump(self):
-        self.speedy = -self.jumpSpeed
+        self.speedy = -self.jumpSpeed * self.decSpeed()
 
     def hurt(self):
         # TODO: Destroy best treasure and make the player invincible for a little bit(see LD39)
         pass
 
-    def slowedSpeed(self):
-        pass
+    # Decelerate speed
+    def decSpeed(self):
+
+        backPackWeight = 0
+        if backPackWeight < self.halfTagWeight:
+            return 1 - backPackWeight / self.halfTagWeight / 2
+        else:
+            return 1/2*math.exp(1-backPackWeight / self.halfTagWeight)

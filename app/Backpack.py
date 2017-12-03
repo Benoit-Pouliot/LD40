@@ -61,5 +61,7 @@ class Backpack():
             x += 1
             y = 0
 
+        return None
+
     def removeItem(self, x, y):
         self.items[x][y] = None

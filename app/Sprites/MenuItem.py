@@ -96,7 +96,8 @@ class MenuItem(pygame.sprite.Sprite):
 
     def destroyFirstItem(self):
         coordinates = self.backpack.returnFirstItemCoordinates()
-        self.player.backPackWeight -= self.backpack.items[coordinates[0]][coordinates[1]].weight
-        self.backpack.removeItem(coordinates[0],coordinates[1])
-        self.updateItemImages()
+        if coordinates != None:
+            self.player.backPackWeight -= self.backpack.items[coordinates[0]][coordinates[1]].weight
+            self.backpack.removeItem(coordinates[0],coordinates[1])
+            self.updateItemImages()
 

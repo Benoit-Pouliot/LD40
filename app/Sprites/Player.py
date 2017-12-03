@@ -323,7 +323,7 @@ class SetupAnimations():
         # imageShapeLeft = [pygame.transform.flip(img, True, False) for img in imageShapeRight]
 
         sizeX = 30
-        sizeY = 45
+        sizeY = 30
 
         imgIdleR = [rectSurface((sizeX, sizeY), PURPLE)]
         imgIdleMoveR = [rectSurface((sizeX, sizeY), ORANGE)]

@@ -23,9 +23,11 @@ class SceneData(SceneDataTMX):
 
         self.itemDatabase = ItemDatabase()
         self.backpack = Backpack(5, 5)
-        self.backpack.addItem(self.itemDatabase.itemList[0])
-        self.backpack.addItem(self.itemDatabase.itemList[1])
-        self.backpack.addItem(self.itemDatabase.itemList[2])
+
+        # self.backpack.addItem(self.itemDatabase.itemList[1])
+        # self.backpack.addItem(self.itemDatabase.itemList[1])
+        # self.backpack.addItem(self.itemDatabase.itemList[2])
+        # self.backpack.addItem(self.itemDatabase.itemList[2])
         self.backpack.items[1][1] = self.itemDatabase.itemList[0]
 
 

@@ -16,8 +16,13 @@ class LogicHandler(LogicHandler):
     def handle(self):
         super().handle()
         self.physics.update()
+        self.handleCollision()
         self.handleBulletCollision()
         self.handleBridgeCollision()
+
+    def handleCollision(self):
+        for sprite in self.gameData.sceneData.bulletGroup:
+            collisionNotifySprite(sprite, SOLID, self.gameData.sceneData)
 
     def handleBulletCollision(self):
         collisionList = pygame.sprite.spritecollide(self.sceneData.player, self.sceneData.bulletGroup,

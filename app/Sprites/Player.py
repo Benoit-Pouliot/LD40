@@ -316,8 +316,8 @@ class Player(pygame.sprite.Sprite):
             self.mapData.menuItem.destroyFirstItem()
             self.invincibleOnHit()
 
-        if self.mapData.playSounds:
-            self.soundBroke.play()
+            if self.mapData.playSounds:
+                self.soundBroke.play()
 
     def invincibleOnHit(self):
         self.invincibleCooldown.start()

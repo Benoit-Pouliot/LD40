@@ -27,17 +27,13 @@ if __name__ == '__main__':
     pygame.display.set_caption("Weight in Gold")
 
     # Init
-    pygame.mixer.pre_init(22050, -16, 2, 4096)
+    pygame.mixer.pre_init(44100, -16, 2, 4096)
     # pygame.mixer.init()
     pygame.init()
     pygame.font.init()
 
     # Hide the mouse
     # pygame.mouse.set_visible(False)
-
-    initNameMap = "GameMap"
-    if TAG_BP == 1:
-        initNameMap = "CavernMap"
 
     sceneHandler = SceneHandler(screen)
     sceneHandler.mainLoop()

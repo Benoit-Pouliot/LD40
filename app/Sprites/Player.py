@@ -34,6 +34,18 @@ class Player(pygame.sprite.Sprite):
         self.image = self.animation.update()
         #End of code for animation
 
+        # Sound effect
+        self.soundJump = pygame.mixer.Sound('music/jump_01.wav')
+        self.soundJump.set_volume(1)
+        self.soundPickUp = pygame.mixer.Sound('music/pickUp_01.wav')
+        self.soundPickUp.set_volume(.5)
+        self.soundDrop = pygame.mixer.Sound('music/drop_01.wav')
+        self.soundDrop.set_volume(.5)
+        self.soundSpring = pygame.mixer.Sound('music/spring_01.wav')
+        self.soundSpring.set_volume(1)
+        self.soundBroke = pygame.mixer.Sound('music/brokenGlass_01.wav')
+        self.soundBroke.set_volume(.4)
+
         self.imageTransparent = rectSurface((32, 32), WHITE, 3)
         self.imageTransparent.set_colorkey(COLORKEY)
         self.imageTransparent.set_alpha(0)
@@ -286,6 +298,13 @@ class Player(pygame.sprite.Sprite):
 
     def jump(self):
         self.speedy = -self.jumpSpeed * self.decSpeed()
+        if self.mapData.playSounds:
+            self.soundJump.play()
+
+    def onSpring(self):
+        self.speedy = -self.springJumpSpeed
+        if self.mapData.playSounds:
+            self.soundSpring.play()
 
     def updateCooldowns(self):
         # For invincibitlity
@@ -296,6 +315,9 @@ class Player(pygame.sprite.Sprite):
             #self.hurtSound.play()
             self.mapData.menuItem.destroyFirstItem()
             self.invincibleOnHit()
+
+        if self.mapData.playSounds:
+            self.soundBroke.play()
 
     def invincibleOnHit(self):
         self.invincibleCooldown.start()
@@ -312,6 +334,8 @@ class Player(pygame.sprite.Sprite):
         self.mapData.backpack.addItem(self.mapData.itemDatabase.itemList[itemID])
         self.backPackWeight += self.mapData.itemDatabase.itemList[itemID].weight
         self.mapData.menuItem.updateItemImages()
+        if self.mapData.playSounds:
+            self.soundPickUp.play()
 
     def dropItem(self, item):
         if self.facingSide == RIGHT:
@@ -332,6 +356,8 @@ class Player(pygame.sprite.Sprite):
         self.mapData.camera.add(itemSprite)
         self.mapData.itemGroup.add(itemSprite)
         self.backPackWeight -= item.weight
+        if self.mapData.playSounds:
+            self.soundDrop.play()
 
 class SetupAnimations():
     def __init__(self):

@@ -14,6 +14,10 @@ class LogicHandler(LogicHandler):
         self.physics = ScenePhysics(gameData.sceneData)
         self.gameOver = False
 
+        # Chest sound effect
+        self.soundDropAllItem = pygame.mixer.Sound('music/dropAllInChest_01.wav')
+        self.soundDropAllItem.set_volume(1)
+
     def handle(self):
         super().handle()
         self.physics.update()
@@ -83,6 +87,10 @@ class LogicHandler(LogicHandler):
            return False
 
     def emptyBackpackInChest(self):
+
+        if self.sceneData.playSounds and not self.sceneData.backpack.isEmpty():
+            self.soundDropAllItem.play()
+
         self.sceneData.score += self.sceneData.backpack.getTotalValue()
         self.sceneData.backpack.empty()
         self.sceneData.player.backPackWeight = 0

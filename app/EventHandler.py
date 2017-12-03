@@ -15,6 +15,8 @@ class EventHandler():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_i or event.key == pygame.K_LSHIFT or event.key == pygame.K_RSHIFT:
                     self.toggleItemMenu()
+                if event.key == pygame.K_m:
+                    self.sceneData.playSounds = not self.sceneData.playSounds
 
             for obj in self.notifySet:
                 obj.notify(event)

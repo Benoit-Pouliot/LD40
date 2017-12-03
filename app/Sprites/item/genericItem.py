@@ -13,10 +13,8 @@ class GenericItem(GenericSprite):
         self.type = "item"
 
         self.itemDatabase = ItemDatabase()
-        self.itemData = self.itemDatabase.itemList[0]
 
         self.dictProperties = {"itemId": self.setId}
-
 
     def setId(self, id):
         self.id = id
@@ -28,3 +26,6 @@ class GenericItem(GenericSprite):
         intId = int(id)
         if intId < self.itemDatabase.size:
             self.image = self.itemDatabase.itemList[intId].image
+
+    def pickedUp(self):
+        self.kill()

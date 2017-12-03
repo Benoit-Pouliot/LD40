@@ -292,6 +292,9 @@ class Player(pygame.sprite.Sprite):
         else:
             return 1/2*math.exp(1-backPackWeight / self.halfTagWeight)
 
+    def pickUpItem(self, itemID):
+        self.mapData.backpack.addItem(itemID)
+
 class SetupAnimations():
     def __init__(self):
 

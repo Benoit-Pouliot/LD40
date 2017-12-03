@@ -32,6 +32,14 @@ class LogicHandler(LogicHandler):
                 bullet.detonate()
             self.sceneData.player.hurt()
 
+    def handleItemCollision(self):
+        collisionList = pygame.sprite.spritecollide(self.sceneData.player, self.sceneData.itemGroup,
+                                                    False)
+        for item in collisionList:
+            self.sceneData.player.pickUpItem(item.id)
+            item.pickedUp()
+
+
     def handleBridgeCollision(self):
         collisionList = pygame.sprite.spritecollide(self.sceneData.player, self.sceneData.bridgeGroup,
                                                     False)

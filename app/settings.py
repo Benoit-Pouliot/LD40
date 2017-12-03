@@ -84,7 +84,7 @@ CLIMBING = 2 #When on a ladder
 
 #Physics
 GRAVITY = 1.5
-FRICTION = 0.8
+FRICTION = 1
 
 #Projectiles
 GRENADE_SPEEDX = 2

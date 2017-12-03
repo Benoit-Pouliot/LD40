@@ -1,13 +1,7 @@
 from LDEngine.ldLib.Sprites.GenericSprite import GenericSprite
 from app.ItemDatabase import ItemDatabase
 from LDEngine.ldLib.collision.collisionMask import CollisionMask
-from LDEngine.ldLib.collision.CollisionRules.CollisionWithSolid import CollisionWithSolid
-from LDEngine.ldLib.collision.CollisionRules.CollisionWithSpring import CollisionWithSpring
-from LDEngine.ldLib.collision.CollisionRules.CollisionWithSpike import CollisionWithSpike
-from LDEngine.ldLib.collision.CollisionRules.CollisionWithLadder import CollisionWithLadder
-from LDEngine.ldLib.collision.CollisionRules.CollisionWithNothing import CollisionWithNothing
-from app.Sprites.environment.CollisionWithBridge import CollisionWithBridge
-
+from LDEngine.ldLib.Sprites.Player.IdleState import IdleState
 #
 # Generic item to create
 #
@@ -34,6 +28,9 @@ class GenericItem(GenericSprite):
 
         self.collisionMask = CollisionMask(self.rect.x, self.rect.y, self.rect.width, self.rect.height)
         self.collisionRules = []
+
+        self._state = IdleState()
+        self.nextState = None
 
     def update(self):
         self.moveX()
@@ -62,6 +59,7 @@ class GenericItem(GenericSprite):
             self.rect.height = tempRect.height
             self.collisionMask = CollisionMask(self.rect.x, self.rect.y, self.rect.width, self.rect.height)
 
+
     def pickedUp(self):
         self.kill()
 
@@ -80,3 +78,13 @@ class GenericItem(GenericSprite):
     def updateCollisionMask(self):
         self.collisionMask.rect.x = self.rect.x
         self.collisionMask.rect.y = self.rect.y
+
+    @property
+    def state(self):
+        return self._state
+
+    @state.setter
+    def state(self, value):
+        self._state.exit(self)
+        self._state = value
+        self._state.enter(self)

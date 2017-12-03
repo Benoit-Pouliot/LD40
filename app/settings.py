@@ -83,8 +83,8 @@ JUMP = 1
 CLIMBING = 2 #When on a ladder
 
 #Physics
-GRAVITY = 1
-FRICTION = 0.5
+GRAVITY = 1.5
+FRICTION = 0.8
 
 #Projectiles
 GRENADE_SPEEDX = 2

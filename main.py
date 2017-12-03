@@ -33,10 +33,14 @@ if __name__ == '__main__':
     # Hide the mouse
     # pygame.mouse.set_visible(False)
 
+    initNameMap = "GameMap"
+    if TAG_BP == 1:
+        initNameMap = "CavernMap"
+
     # Create the test scene
     drawer = Drawer()
     gameData = GameData()
-    gameData.sceneData = SceneData(drawer)
+    gameData.sceneData = SceneData(drawer, initNameMap)
     logicHandler = LogicHandler(gameData)
 
     testScene = Scene(screen, gameData, logicHandler, drawer)

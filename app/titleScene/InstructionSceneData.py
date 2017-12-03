@@ -40,14 +40,12 @@ class InstructionSceneData(SceneData):
         self.textGoal.textList.append('Beware, traveler! Ill-prepared adventurers')
         self.textGoal.textList.append('soon feel the weight of the riches they acquire.')
         self.textGoal.textList.append('')
-        self.textGoal.textList.append('CONTROLS:')
         self.textGoal.textList.append('Move with the ARROW KEYS.')
         self.textGoal.textList.append('Jump with SPACE.')
         self.textGoal.textList.append('Your inventory is controlled with the MOUSE.')
-        self.textGoal.textList.append('Toggle it with SHIFT.')
-        self.textGoal.textList.append('(Your performance will be timed.)')
-        # self.textGoal.textList.append('')
-        # self.textGoal.textList.append('Press m to mute the game.')
+        self.textGoal.textList.append('Toggle it on or off with SHIFT.')
+        self.textGoal.textList.append('Mute the game with the M key.')
+        self.textGoal.textList.append('Your performance will be timed.')
         self.textGoal.updateText()
         self.allSprites.add(self.textGoal)  # Add sprite
 

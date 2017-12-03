@@ -28,22 +28,20 @@ class SceneHandler:
         self.gameData.sceneData = TitleSceneData()
         self.logicHandler = TitleSceneLogicHandler(self.gameData)
         self.runningScene = TitleScreen(self.screen, self.gameData, self.logicHandler)
-        self.MusicHandler = MusicHandler("mainMenu.ogg")
-        self.MusicHandler.play()
 
 
     def mainLoop(self):
         self.handlerRunning = True
+
         while self.handlerRunning:
             self.runningScene.mainLoop()
             self.logicHandler.handle()
-
             #When we exit the scene, this code executes
             if self.runningScene.nextScene == TITLE_SCREEN:
                 self.gameData.sceneData = TitleSceneData()
                 self.logicHandler = TitleSceneLogicHandler(self.gameData)
                 self.runningScene = TitleScreen(self.screen, self.gameData, self.logicHandler)
-                self.MusicHandler.update("mainMenu.ogg")
+                self.gameData.MusicHandler.update("mainMenu.ogg")
             elif self.runningScene.nextScene == INSTRUCTION_SCREEN:
                 self.gameData.sceneData = InstructionSceneData()
                 self.logicHandler = TitleSceneLogicHandler(self.gameData)
@@ -58,7 +56,7 @@ class SceneHandler:
                 self.gameData.sceneData = EndingSceneData(score, timeToBeat)
                 self.logicHandler = TitleSceneLogicHandler(self.gameData)
                 self.runningScene = TitleScreen(self.screen, self.gameData, self.logicHandler)
-                self.MusicHandler.update("ending.ogg")
+                self.gameData.MusicHandler.update("ending.ogg")
             elif self.runningScene.nextScene == PLATFORM_SCREEN:
                 # Create the test scene
                 drawer = Drawer()
@@ -68,5 +66,5 @@ class SceneHandler:
 
                 testScene = Scene(self.screen, self.gameData, logicHandler, eventHandler, drawer)
                 self.runningScene = testScene
-                self.MusicHandler.update("stage_music.ogg")
+                self.gameData.MusicHandler.update("stage_music.ogg")
 

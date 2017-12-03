@@ -3,7 +3,7 @@ class Backpack():
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.items = [[0 for x in range(width)] for y in range(height)]
+        self.items = [[None for x in range(width)] for y in range(height)]
 
     def addItem(self, item):
         coordinate = self.nextFreeCoordinate();
@@ -16,7 +16,7 @@ class Backpack():
 
         for list in self.items:
             for item in list:
-                if item == 0:
+                if item == None:
                     return (x,y)
                 y += 1
             x += 1

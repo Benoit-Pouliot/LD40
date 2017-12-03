@@ -8,6 +8,8 @@ from LDEngine.ldLib.scene.GameData import GameData
 from app.SceneData import SceneData
 from app.LogicHandler import LogicHandler
 
+from app.Drawer import Drawer
+
 from app.settings import *
 
 if __name__ == '__main__':
@@ -32,8 +34,10 @@ if __name__ == '__main__':
     # pygame.mouse.set_visible(False)
 
     # Create the test scene
+    drawer = Drawer()
     gameData = GameData()
-    gameData.sceneData = SceneData()
+    gameData.sceneData = SceneData(drawer)
     logicHandler = LogicHandler(gameData)
-    testScene = Scene(screen, gameData, logicHandler)
+
+    testScene = Scene(screen, gameData, logicHandler, drawer)
     testScene.run()

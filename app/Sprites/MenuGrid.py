@@ -6,8 +6,11 @@ class MenuGrid(pygame.sprite.Sprite):
         super().__init__()
         self.x = x
         self.y = y
+        self.slotWidth = slotWidth
+        self.slotHeight = slotHeight
         self.totalWidth = horizontalSlotQty * slotWidth + (horizontalSlotQty + 1) * lineWidth
         self.totalHeight = verticalSlotQty * slotHeight + (verticalSlotQty + 1) * lineWidth
+        self.lineWidth = lineWidth
         self.surface = pygame.Surface((self.totalWidth, self.totalHeight))
         self.surface.fill(WHITE)
 
@@ -31,3 +34,8 @@ class MenuGrid(pygame.sprite.Sprite):
     def update(self):
         self.rect.x = self.x
         self.rect.y = self.y
+
+    def getBoxPixelCoordinate(self, x, y):
+        pixelX = self.slotWidth * x + (self.lineWidth + 1) * x
+        pixelY = self.slotHeight * y + (self.lineWidth + 1) * y
+        return (pixelX, pixelY)

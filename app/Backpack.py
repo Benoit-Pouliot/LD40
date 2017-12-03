@@ -1,3 +1,4 @@
+import random
 
 class Backpack():
     def __init__(self, width, height):
@@ -47,3 +48,10 @@ class Backpack():
         for list in self.items:
             for index in range(len(list)):
                 list[index] = None
+
+    def destroyFirstItem(self):
+        for list in self.items:
+            for index in range(len(list)):
+                if list[index] != None:
+                    list[index] = None
+                    return

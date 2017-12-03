@@ -220,7 +220,7 @@ class Player(pygame.sprite.Sprite):
         self.isAlive = False
 
     def onSpike(self):
-        self.kill()
+        self.hurt()
 
     def onCollision(self, collidedWith, sideOfCollision,limit=0):
         if collidedWith == SOLID:
@@ -294,8 +294,9 @@ class Player(pygame.sprite.Sprite):
     def hurt(self):
         if self.invincibleCooldown.isZero:
             #self.hurtSound.play()
+            self.mapData.backpack.destroyFirstItem()
+            self.mapData.menuItem.updateItemImages()
             self.invincibleOnHit()
-            print("HURT!!!")
 
     def invincibleOnHit(self):
         self.invincibleCooldown.start()

@@ -6,7 +6,7 @@ from app.settings import *
 
 
 class TitleScreen:
-    def __init__(self,screen,gameData,logicHandler, musicHandler = None):
+    def __init__(self,screen,gameData,logicHandler):
         # Screen
         self.gameData = gameData
         self.nextScene = None
@@ -29,10 +29,6 @@ class TitleScreen:
         self.eventHandler = EventHandler()
         self.logicHandler = logicHandler
         self.drawer = Drawer()
-        self.musicHandler = musicHandler
-
-        if self.musicHandler != None:
-            self.musicHandler.play()
 
     def mainLoop(self):
         self.sceneRunning = True
@@ -54,7 +50,5 @@ class TitleScreen:
     def beforeLeavingScene(self):
         self.sceneRunning = False
         self.sceneData.beforeLeavingScene(self.screen)
-        if self.musicHandler != None:
-            self.musicHandler.stop()
 
 

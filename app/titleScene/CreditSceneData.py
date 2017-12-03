@@ -53,14 +53,12 @@ class CreditSceneData(SceneData):
         self.textGoal.textList.append('Benoît Pouliot')
         # Music sources go here
         self.textGoal.textList.append('')
-        #self.textGoal.textList.append('Featuring the following music tracks:')
-        #self.textGoal.textList.append('Trace Route by BoxCat Games')
-        #self.textGoal.textList.append('Victory by BoxCat Games')
-        #self.textGoal.textList.append("(freemusicarchive.org/music/BoxCat_Games/)")
-        #self.textGoal.textList.append('End to Joy by Covox')
-        #self.textGoal.textList.append("(freemusicarchive.org/music/Covox/)")
-        #self.textGoal.textList.append('Ahead Of The Curve by Creo')
-        #self.textGoal.textList.append("(freemusicarchive.org/music/Creo/)")
+        self.textGoal.textList.append('Featuring the following music tracks:')
+        self.textGoal.textList.append('Stance Gives You Balance by Hogan Grip')
+        self.textGoal.textList.append('(http://freemusicarchive.org/music/Hogan_Grip/)')
+        self.textGoal.textList.append('Cylinder Nine by Chris Zabriskie')
+        self.textGoal.textList.append('Readers! Do You Read? by Chris Zabriskie')
+        self.textGoal.textList.append('(http://freemusicarchive.org/music/Chris_Zabriskie/)')
 
         self.allSprites.add(self.textGoal)  # Add sprite
 

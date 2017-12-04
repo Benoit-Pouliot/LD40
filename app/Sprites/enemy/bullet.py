@@ -7,7 +7,7 @@ import os
 
 class FireBullet(Bullet):
     def __init__(self, x, y, direction=RIGHT, friendly=True):
-        super().__init__(x, y, os.path.join('LDEngine\img', 'biere32x32.png'))
+        super().__init__(x, y, os.path.join('Sprite', 'bullet.png'))
 
         self.name = "bullet"
 

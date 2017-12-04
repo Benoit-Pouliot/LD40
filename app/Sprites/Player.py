@@ -63,10 +63,10 @@ class Player(pygame.sprite.Sprite):
         self.speedx = 0
         self.speedy = 0
         self.maxSpeedx = 7
-        self.maxSpeedyUp = 30
+        self.maxSpeedyUp = 40
         self.maxSpeedyDown = 20
         self.jumpSpeed = 30
-        self.springJumpSpeed = 30
+        self.springJumpSpeed = 70
         self.accx = 2
         self.accy = 2
 
@@ -76,7 +76,7 @@ class Player(pygame.sprite.Sprite):
         self.isFrictionApplied = True
         self.isGravityApplied = True
         self.isCollisionApplied = True
-        self.facingSide = RIGHT
+        self.facingSide = LEFT
         self.friendly = True
 
         self.rightPressed = False

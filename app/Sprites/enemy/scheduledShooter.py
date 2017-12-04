@@ -61,7 +61,7 @@ class ScheduledShooter(Enemy):
             if self.direction == RIGHT:
                 bullet = FireBullet(self.rect.x + self.rect.width + 1, self.rect.centery, RIGHT, False)
             elif self.direction == LEFT:
-                bullet = FireBullet(self.rect.x - 10, self.rect.centery, LEFT, False)
+                bullet = FireBullet(self.rect.x - 40, self.rect.centery, LEFT, False)
             elif self.direction == UP:
                 bullet = FireBullet(self.rect.x, self.rect.y - 20, UP, False)
             else:

@@ -64,8 +64,9 @@ class Bridge(Enemy):
         self.collisionMask.rect.y = self.rect.y
 
     def dead(self):
-        self.soundDead.play()
-        self.kill()
+        # self.soundDead.play()
+        # self.kill()
+        pass
 
     def onCollision(self, collidedWith, sideOfCollision):
         pass

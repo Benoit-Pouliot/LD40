@@ -20,7 +20,7 @@ class GenericItem(GenericSprite):
 
         self.speedx = 0
         self.speedy = 0
-        self.springJumpSpeed = 35
+        self.springJumpSpeed = 47
 
         self.isFrictionApplied = False
         self.isGravityApplied = False
@@ -88,3 +88,6 @@ class GenericItem(GenericSprite):
         self._state.exit(self)
         self._state = value
         self._state.enter(self)
+
+    def onSpring(self):
+        self.speedy = -self.springJumpSpeed

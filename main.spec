@@ -13,7 +13,7 @@
 
 block_cipher = None
 
-addedFiles = [ ('tiles_map', 'tiles_map'), ('img', 'img'), ('img/playerImg', 'img/playerImg'), ('LDEngine/img', 'LDEngine/img') ]
+addedFiles = [ ('tiles_map', 'tiles_map'), ('img', 'img'), ('Sprite', 'Sprite'), ('img/playerImg', 'img/playerImg'), ('LDEngine/img', 'LDEngine/img') ]
 
 a = Analysis(['main.py'],
              pathex=['LD40'],

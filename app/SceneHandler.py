@@ -1,21 +1,18 @@
+import time
+
+from LDEngine.app.gameData import GameData
 from LDEngine.app.settings import *
 from LDEngine.ldLib.scene.Scene import Scene
-from app.titleScene.titleScreen import TitleScreen
 from app.Drawer import Drawer
-from app.titleScene.TitleSceneLogicHandler import TitleSceneLogicHandler
-
+from app.EventHandler import EventHandler
+from app.LogicHandler import LogicHandler
 from app.SceneData import SceneData
-from app.titleScene.TitleSceneData import TitleSceneData
-from app.titleScene.InstructionSceneData import InstructionSceneData
 from app.titleScene.CreditSceneData import CreditSceneData
 from app.titleScene.EndingSceneData import EndingSceneData
-
-from app.LogicHandler import LogicHandler
-from app.EventHandler import EventHandler
-from music.MusicHandler import MusicHandler
-
-import time
-from LDEngine.app.gameData import GameData
+from app.titleScene.InstructionSceneData import InstructionSceneData
+from app.titleScene.TitleSceneData import TitleSceneData
+from app.titleScene.TitleSceneLogicHandler import TitleSceneLogicHandler
+from app.titleScene.titleScreen import TitleScreen
 
 
 class SceneHandler:

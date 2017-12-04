@@ -11,12 +11,12 @@ import weakref
 
 from LDEngine.ldLib.scene.SceneData import SceneData
 
-POOR = 500
-OKAY = 2000
-GOOD = 4000
-AMAZING = 8000
+POOR = 150
+OKAY = 250
+GOOD = 350
+AMAZING = 450
 
-TIME_GOAL = 150
+TIME_GOAL = 55
 
 
 class EndingSceneData(SceneData):

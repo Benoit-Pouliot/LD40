@@ -8,6 +8,7 @@ from app.ItemDatabase import ItemDatabase
 from app.Sprites.environment.bridge import Bridge
 from app.Sprites.MenuItem import MenuItem
 from app.Backpack import Backpack
+from app.Sprites.ScoreDisplay import ScoreDisplay
 from app.Drawer import Drawer
 import pygame
 
@@ -16,6 +17,9 @@ class SceneData(SceneDataTMX):
         super().__init__(nameMap, "StartPointWorld", (SCREEN_WIDTH,SCREEN_HEIGHT))
 
         self.score = 0
+        self.scoreDisplay = ScoreDisplay(SCREEN_WIDTH- 140,10, self)
+
+        self.spritesHUD.add(self.scoreDisplay)
 
         self.drawer = drawer
 

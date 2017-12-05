@@ -7,7 +7,6 @@
   <image source="img/Set_01.png" width="160" height="160"/>
  </tileset>
  <tileset firstgid="76" source="cavern_tileset.tsx"/>
- <tileset firstgid="126" source="../../LD39/tiles_map/CollisionMap.tsx"/>
  <layer name="Collision_TL" width="100" height="100">
   <data encoding="csv">
 1,2,3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
